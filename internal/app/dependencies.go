@@ -7,7 +7,9 @@ import (
 	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/config"
 	dbconfig "github.com/hudayberdipolat/go-Ecommerce-backend/pkg/database/dbConfig"
 	httpCustom "github.com/hudayberdipolat/go-Ecommerce-backend/pkg/http"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/language"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/logging"
+	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"github.com/rs/zerolog"
 	"gorm.io/gorm"
 )
@@ -17,6 +19,7 @@ type Dependencies struct {
 	DB         *gorm.DB
 	HttpServer *http.Client
 	Logger     *zerolog.Logger
+	Bundle     *i18n.Bundle
 }
 
 func GetDependencies() (*Dependencies, error) {
@@ -26,6 +29,9 @@ func GetDependencies() (*Dependencies, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	bundle := language.InitBundle(getConfig)
+
 	// get logger
 	logger := logging.GetLogger(getConfig)
 	// db connection
@@ -45,5 +51,6 @@ func GetDependencies() (*Dependencies, error) {
 		DB:         db,
 		HttpServer: customHttp,
 		Logger:     logger,
+		Bundle:     bundle,
 	}, nil
 }
