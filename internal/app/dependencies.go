@@ -29,7 +29,7 @@ func GetDependencies() (*Dependencies, error) {
 	// get logger
 	logger := logging.GetLogger(getConfig)
 	// db connection
-	logger.Info().Msg("Database connection")
+	logger.Info().Msg("-------------------------------------------")
 	dbConfig := dbconfig.NewDBConnection(getConfig)
 	db, errDB := dbConfig.GetDBConfig()
 	if errDB != nil {
@@ -37,10 +37,9 @@ func GetDependencies() (*Dependencies, error) {
 		logger.Error().Msg(err.Error())
 		return nil, errDB
 	}
-
+	logger.Info().Msg("Database connection successfully")
 	// http connection
 	customHttp := httpCustom.NewHttpClient()
-
 	return &Dependencies{
 		Config:     getConfig,
 		DB:         db,

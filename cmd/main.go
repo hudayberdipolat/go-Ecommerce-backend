@@ -12,14 +12,18 @@ func main() {
 	if err != nil {
 		log.Fatal("error : ", err.Error())
 	}
+
 	// constructor
 
 	// new app
 	runSever := fmt.Sprintf("%s:%s", getDependencies.Config.HttpConfig.ServerHost, getDependencies.Config.HttpConfig.ServerPort)
 
 	appRouter := app.NewApp(getDependencies)
-
+	getDependencies.Logger.Info().Msg("Project run successfully")
 	if errRunServer := appRouter.Listen(runSever); errRunServer != nil {
-		log.Println("error : ", errRunServer.Error())
+		getDependencies.Logger.Info().Msg("Project run server error")
+		getDependencies.Logger.Info().Msg(errRunServer.Error())
 	}
+	// logger message
+
 }

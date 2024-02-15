@@ -15,7 +15,7 @@ func GetLogger(config *config.Config) *zerolog.Logger {
 		panic(err)
 	}
 
-	path := folder + "%Y-%m-%d.log"
+	path := folder + "/%Y-%m-%d.log"
 
 	rl, _ := rotatelogs.New(path)
 
