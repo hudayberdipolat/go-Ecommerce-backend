@@ -8,17 +8,17 @@ import (
 	"gorm.io/gorm"
 )
 
-type DbConfig struct {
+type DBConfig struct {
 	config *config.Config
 }
 
-func NewDBConnection(config *config.Config) *DbConfig {
-	return &DbConfig{
+func NewDBConnection(config *config.Config) *DBConfig {
+	return &DBConfig{
 		config: config,
 	}
 }
 
-func (dbConfig DbConfig) GetDBConfig() (*gorm.DB, error) {
+func (dbConfig DBConfig) GetDBConfig() (*gorm.DB, error) {
 
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s",
 		dbConfig.config.DBConfig.DbHost,
