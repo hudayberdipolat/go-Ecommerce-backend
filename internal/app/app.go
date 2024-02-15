@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/setup/router"
 )
 
 func NewApp(dependencies *Dependencies) (httpServer *fiber.App) {
@@ -24,5 +25,12 @@ func NewApp(dependencies *Dependencies) (httpServer *fiber.App) {
 			})
 		},
 	})
+
+	// routes
+
+	router.AdminRoutes(httpServer)
+	router.UserRoutes(httpServer)
+	router.StaticFile(httpServer)
+
 	return httpServer
 }

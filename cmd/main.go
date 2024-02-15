@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/app"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/setup/constructor"
 )
 
 func main() {
@@ -12,12 +13,8 @@ func main() {
 	if err != nil {
 		log.Fatal("error : ", err.Error())
 	}
-
-	// constructor
-
-	// new app
+	constructor.Build(getDependencies)
 	runSever := fmt.Sprintf("%s:%s", getDependencies.Config.HttpConfig.ServerHost, getDependencies.Config.HttpConfig.ServerPort)
-
 	appRouter := app.NewApp(getDependencies)
 	getDependencies.Logger.Info().Msg("Project run successfully")
 	if errRunServer := appRouter.Listen(runSever); errRunServer != nil {
