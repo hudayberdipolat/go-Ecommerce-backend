@@ -1,7 +1,10 @@
 package constructor
 
-import "github.com/hudayberdipolat/go-Ecommerce-backend/internal/app"
+import (
+	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/app"
+	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
+)
 
 func Build(dependencies *app.Dependencies) {
-
+	categoryConstructor.CategoryRequirementsCreator(dependencies.DB)
 }
