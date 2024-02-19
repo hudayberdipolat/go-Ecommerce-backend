@@ -11,8 +11,8 @@ type OneBrendResponse struct {
 	BrendImage  string `json:"brend_image"`
 }
 
-func NewOneBrendResponse(brend models.Brend) *OneBrendResponse {
-	return &OneBrendResponse{
+func NewOneBrendResponse(brend *models.Brend) OneBrendResponse {
+	return OneBrendResponse{
 		ID:          brend.ID,
 		BrendNameTk: brend.BrendNameTk,
 		BrendNameRu: brend.BrendNameRu,

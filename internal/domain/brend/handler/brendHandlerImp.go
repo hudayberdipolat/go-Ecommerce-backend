@@ -3,14 +3,19 @@ package handler
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brend/service"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/config"
 )
 
 type brendHandlerimp struct {
 	brendService service.BrendService
+	config       *config.Config
 }
 
-func NewBrendHandler(service service.BrendService) BrendHandler {
-	return brendHandlerimp{brendService: service}
+func NewBrendHandler(service service.BrendService, config *config.Config) BrendHandler {
+	return brendHandlerimp{
+		brendService: service,
+		config:       config,
+	}
 }
 
 func (b brendHandlerimp) GetOne(ctx *fiber.Ctx) error {

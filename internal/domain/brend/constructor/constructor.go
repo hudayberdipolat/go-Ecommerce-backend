@@ -4,6 +4,7 @@ import (
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brend/handler"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brend/repository"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brend/service"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/config"
 	"gorm.io/gorm"
 )
 
@@ -13,8 +14,8 @@ var (
 	BrendHandler handler.BrendHandler
 )
 
-func BrendRequirementsCreator(db *gorm.DB) {
+func BrendRequirementsCreator(db *gorm.DB, config *config.Config) {
 	brendRepo = repository.NewBrendRepository(db)
 	brendService = service.NewBrendService(brendRepo)
-	BrendHandler = handler.NewBrendHandler(brendService)
+	BrendHandler = handler.NewBrendHandler(brendService, config)
 }

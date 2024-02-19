@@ -8,5 +8,5 @@ import (
 
 func Build(dependencies *app.Dependencies) {
 	categoryConstructor.CategoryRequirementsCreator(dependencies.DB)
-	brendConstructor.BrendRequirementsCreator(dependencies.DB)
+	brendConstructor.BrendRequirementsCreator(dependencies.DB, dependencies.Config)
 }

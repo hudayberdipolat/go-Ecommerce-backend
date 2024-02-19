@@ -8,4 +8,5 @@ type BrendRepository interface {
 	Create(brend models.Brend) error
 	Update(brendID int, brend models.Brend) error
 	Delete(brendID int) error
+	CheckBrendName(brendNameTk, brendNameRu string) bool
 }

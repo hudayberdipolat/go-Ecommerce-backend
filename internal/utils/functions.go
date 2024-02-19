@@ -58,3 +58,12 @@ func UploadFile(ctx *fiber.Ctx, inputName, publicPath, ImagePath string) (*strin
 	dbPath := fmt.Sprintf("public/%s/%s", ImagePath, filename)
 	return &dbPath, nil
 }
+
+// delete File
+func DeleteFile(filename string) error {
+	err := os.Remove(filename)
+	if err != nil {
+		return err
+	}
+	return nil
+}
