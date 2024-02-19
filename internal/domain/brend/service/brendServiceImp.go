@@ -51,7 +51,7 @@ func (b brendServiceImp) CreateBrend(ctx *fiber.Ctx, config config.Config, creat
 	// brend ady on yok bolsa onda image upload image
 	// image upload
 
-	path, err := utils.UploadFile(ctx, "image_url", config.FolderConfig.PublicPath, "brend-images")
+	path, err := utils.UploadFile(ctx, "brend_image", config.FolderConfig.PublicPath, "brend-images")
 	if err != nil {
 		return err
 	}
@@ -87,7 +87,7 @@ func (b brendServiceImp) UpdateBrend(ctx *fiber.Ctx, config config.Config, brend
 			return err
 		}
 		// new image upload
-		path, errFileUpload := utils.UploadFile(ctx, "image_url", config.FolderConfig.PublicPath, "postImages")
+		path, errFileUpload := utils.UploadFile(ctx, "brend_image", config.FolderConfig.PublicPath, "postImages")
 		if errFileUpload != nil {
 			return errFileUpload
 		}
