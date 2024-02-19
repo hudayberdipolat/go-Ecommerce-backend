@@ -92,7 +92,7 @@ func (p productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *config.Config, 
 	updateProduct.ProductStatus = request.ProductStatus
 	updateProduct.ProductDescTk = request.ProductDescTk
 	updateProduct.ProductDescRu = request.ProductDescRu
-	updateProduct.MainImage = &updateProduct.MainImage
+	updateProduct.MainImage = updateProduct.MainImage
 	updateProduct.ProductNameTk = request.Price
 	updateProduct.TotalCount = request.TotalCount
 	updateProduct.GalanSany = request.GalanSany
