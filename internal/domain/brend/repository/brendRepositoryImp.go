@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"errors"
+
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
 	"gorm.io/gorm"
 )
@@ -14,21 +16,46 @@ func NewBrendRepository(db *gorm.DB) BrendRepository {
 }
 
 func (b brendRepositoryImp) FindOneBrend(brendID int) (*models.Brend, error) {
-	panic("brend repo imp")
+	var brend models.Brend
+	if err := b.db.First(&brend, brendID).Error; err != nil {
+		return nil, err
+	}
+	return &brend, nil
+
 }
 
-func (b brendRepositoryImp) FindAllBrend(brendID int) (*models.Brend, error) {
-	panic("brend repo imp")
+func (b brendRepositoryImp) FindAllBrend() ([]models.Brend, error) {
+	var brends []models.Brend
+	if err := b.db.Find(&brends).Error; err != nil {
+		return nil, err
+	}
+	return brends, nil
 }
 
 func (b brendRepositoryImp) Create(brend models.Brend) error {
-	panic("brend repo imp")
+	if err := b.db.Create(&brend).Error; err != nil {
+		if errors.Is(err, gorm.ErrDuplicatedKey) {
+			return errors.New("Bu Brend ady eýýäm ulanylýar!!!")
+		}
+		return err
+	}
+	return nil
 }
 
 func (b brendRepositoryImp) Update(brendID int, brend models.Brend) error {
-	panic("brend repo imp")
+	err := b.db.Model(models.Brend{}).Where("id=?", brendID).Updates(&brend).Error
+	if err != nil {
+		if errors.Is(err, gorm.ErrDuplicatedKey) {
+			return errors.New("Bu Brend ady eýýäm ulanylýar!!!")
+		}
+		return err
+	}
+	return nil
 }
 
 func (b brendRepositoryImp) Delete(brendID int) error {
-	panic("brend repo imp")
+	if err := b.db.Unscoped().Delete(&models.Brend{}, brendID).Error; err != nil {
+		return err
+	}
+	return nil
 }
