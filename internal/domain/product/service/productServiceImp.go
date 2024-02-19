@@ -40,7 +40,7 @@ func (p productServiceImp) GetAllProduct() ([]dto.AllProductResponse, error) {
 	return productResponses, nil
 }
 
-func (p productServiceImp) CreateProduct(ctx *fiber.Ctx, config config.Config, request models.Product) error {
+func (p productServiceImp) CreateProduct(ctx *fiber.Ctx, config *config.Config, request dto.CreateProductRequest) error {
 
 	// file upload
 	path, err := utils.UploadFile(ctx, "image_url", config.FolderConfig.PublicPath, "product-images")
@@ -66,7 +66,7 @@ func (p productServiceImp) CreateProduct(ctx *fiber.Ctx, config config.Config, r
 	return nil
 }
 
-func (p productServiceImp) UpdateProduct(ctx *fiber.Ctx, config config.Config, productID int, request models.Product) error {
+func (p productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *config.Config, productID int, request dto.UpdateProductRequest) error {
 	updateProduct, err := p.productRepo.FindOne(productID)
 	if err != nil {
 		return errors.New("product not found")
@@ -92,7 +92,7 @@ func (p productServiceImp) UpdateProduct(ctx *fiber.Ctx, config config.Config, p
 	updateProduct.ProductStatus = request.ProductStatus
 	updateProduct.ProductDescTk = request.ProductDescTk
 	updateProduct.ProductDescRu = request.ProductDescRu
-	updateProduct.MainImage = updateProduct.MainImage
+	updateProduct.MainImage = &updateProduct.MainImage
 	updateProduct.ProductNameTk = request.Price
 	updateProduct.TotalCount = request.TotalCount
 	updateProduct.GalanSany = request.GalanSany

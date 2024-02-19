@@ -61,8 +61,7 @@ func UploadFile(ctx *fiber.Ctx, inputName, publicPath, ImagePath string) (*strin
 
 // delete File
 func DeleteFile(filename string) error {
-	fullPath := fmt.Sprintf(filename)
-	err := os.Remove(fullPath)
+	err := os.Remove(filename)
 	if err != nil {
 		return err
 	}

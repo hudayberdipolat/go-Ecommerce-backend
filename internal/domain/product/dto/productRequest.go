@@ -22,4 +22,5 @@ type UpdateProductRequest struct {
 	MainImage     *string `json:"main_image" form:"main_image" validate:"required"`
 	Price         string  `json:"price" form:"price" validate:"required"`
 	TotalCount    int     `json:"total_count" form:"total_count" validate:"required"`
+	GalanSany     int     `json:"galan_sany" form:"galan_sany" validate:"required"`
 }
