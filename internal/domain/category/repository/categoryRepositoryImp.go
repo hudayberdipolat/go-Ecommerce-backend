@@ -46,7 +46,7 @@ func (repo categoryRepositoryImp) Create(category models.Category) error {
 func (repo categoryRepositoryImp) Update(categoryID int, category models.Category) error {
 	if err := repo.db.Model(&models.Category{}).Where("id=?", categoryID).Updates(&category).Error; err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) {
-			return errors.New("Bu category ady eýýäm ulanylýar !!")
+			return errors.New("Bu category ady eýýäm ulanylýar!!!")
 		}
 		return err
 	}

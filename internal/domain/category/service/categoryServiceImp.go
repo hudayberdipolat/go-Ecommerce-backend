@@ -1,8 +1,12 @@
 package service
 
 import (
+	"errors"
+
+	"github.com/gosimple/slug"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/dto"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/repository"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
 )
 
 type categoryServiceImp struct {
@@ -16,21 +20,66 @@ func NewCategoryService(repo repository.CategoryRepository) CategoryService {
 }
 
 func (service categoryServiceImp) FindOneCategory(categoryID int) (*dto.OneCategoryResponse, error) {
-	panic("category service imp")
+	category, err := service.categoryRepo.OneCategory(categoryID)
+	if err != nil {
+		return nil, err
+	}
+	categoryResponse := dto.NewOneCategoryResponse(category)
+	return &categoryResponse, nil
 }
 
 func (service categoryServiceImp) FindAllCategory() ([]dto.AllCategoryResponse, error) {
-	panic("category service imp")
+	categories, err := service.categoryRepo.AllCategory()
+	if err != nil {
+		return nil, err
+	}
+	allCategoryResponse := dto.NewAllCategoryResponse(categories)
+	return allCategoryResponse, nil
 }
 
 func (service categoryServiceImp) CreateCategory(request dto.CreateCategoryRequest) error {
-	panic("category service imp")
+
+	createCategory := models.Category{
+		CategoryNameTK: request.CategoryNameTK,
+		CategoryNameRU: request.CategoryNameRU,
+		CategoryStatus: request.CategoryStatus,
+		CategorySlug:   slug.Make(request.CategoryNameTK),
+	}
+	if err := service.categoryRepo.Create(createCategory); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (service categoryServiceImp) UpdateCategory(categoryID int, request dto.UpdateCategoryRequest) error {
-	panic("category service imp")
+
+	// get category
+	getCategory, err := service.categoryRepo.OneCategory(categoryID)
+	if err != nil {
+		return errors.New("category not found! something wrong ...")
+	}
+
+	getCategory.CategoryNameTK = request.CategoryNameTK
+	getCategory.CategoryNameRU = request.CategoryNameTK
+	getCategory.CategoryStatus = request.CategoryStatus
+	getCategory.CategorySlug = slug.Make(getCategory.CategoryNameTK)
+
+	// update category
+
+	if err := service.categoryRepo.Update(getCategory.ID, *getCategory); err != nil {
+		return err
+	}
+	return nil
 }
 
 func (service categoryServiceImp) DeleteCategory(categoryID int) error {
-	panic("category service imp")
+	getCategory, err := service.categoryRepo.OneCategory(categoryID)
+	if err != nil {
+		return errors.New("category not found! something wrong ...")
+	}
+
+	if err := service.categoryRepo.Delete(getCategory.ID); err != nil {
+		return err
+	}
+	return nil
 }
