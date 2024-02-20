@@ -3,8 +3,8 @@ package repository
 import "github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
 
 type ProductImageRepository interface {
-	GetOneProduct(productID int) (*models.Product, error)
-	GetOne(productImageID int) (*models.ProductImage, error)
+	GetOne(productImageID, productID int) (*models.ProductImage, error)
 	Create(image models.ProductImage) error
-	Delete(productImageID int) error
+	Delete(productImageID, productID int) error
+	GetOneProduct(productID int) (*models.Product, error)
 }
