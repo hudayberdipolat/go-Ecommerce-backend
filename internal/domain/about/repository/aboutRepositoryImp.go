@@ -16,9 +16,17 @@ func NewAboutRepository(db *gorm.DB) AboutRepository {
 }
 
 func (aboutRepo aboutRepositoryImp) GetOne(aboutID int) (*models.About, error) {
-	panic("about repo imp")
+	var about models.About
+
+	if err := aboutRepo.db.First(&about, aboutID).Error; err != nil {
+		return nil, err
+	}
+	return &about, nil
 }
 
 func (aboutRepo aboutRepositoryImp) Update(aboutID int, about models.About) error {
-	panic("about repo imp")
+	if err := aboutRepo.db.Model(&models.About{}).Where("id=?", aboutID).Updates(&about).Error; err != nil {
+		return err
+	}
+	return nil
 }
