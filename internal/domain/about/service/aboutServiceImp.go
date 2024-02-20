@@ -3,7 +3,6 @@ package service
 import (
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/about/dto"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/about/repository"
-	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
 )
 
 type aboutServiceImp struct {
@@ -26,7 +25,7 @@ func (aboutService aboutServiceImp) GetOneAbout(aboutID int) (*dto.AboutResponse
 	return &aboutResponse, nil
 }
 
-func (aboutService aboutServiceImp) UpdateAbout(aboutID int, about models.About) error {
+func (aboutService aboutServiceImp) UpdateAbout(aboutID int, about dto.AboutRequest) error {
 
 	updateAbout, err := aboutService.aboutRepo.GetOne(aboutID)
 	if err != nil {
