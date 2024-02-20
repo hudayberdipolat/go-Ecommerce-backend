@@ -2,9 +2,10 @@ package router
 
 import (
 	"github.com/gofiber/fiber/v2"
+	aboutConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/about/constructor"
 	BrendConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brend/constructor"
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
-	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
+	contactConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
 	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	productImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/productImage/constructor"
 )
@@ -44,6 +45,13 @@ func AdminRoutes(app *fiber.App) {
 
 	// contact routes
 	contactRoute := adminApi.Group("contact")
-	contactRoute.Get("/:contactID", constructor.ContactHandler.GetOne)
-	contactRoute.Put("/:contactID/update", constructor.ContactHandler.Update)
+	contactRoute.Get("/:contactID", contactConstructor.ContactHandler.GetOne)
+	contactRoute.Put("/:contactID/update", contactConstructor.ContactHandler.Update)
+
+	// about routes
+
+	aboutRoute := adminApi.Group("about")
+	aboutRoute.Get("/:aboutID", aboutConstructor.AboutHandler.GetOne)
+	aboutRoute.Get("/:aboutID/update", aboutConstructor.AboutHandler.Update)
+
 }
