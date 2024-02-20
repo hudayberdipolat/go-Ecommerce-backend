@@ -51,6 +51,12 @@ func (contactHandler contactHandlerImp) Update(ctx *fiber.Ctx) error {
 		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
 	}
 
+	phoneNumberValidate := validate.PhoneNumberValidate(contactRequest.PhoneNumber)
+	if !phoneNumberValidate {
+		errResponse := response.Error(http.StatusBadRequest, "Nädogry telefon belgi!!!", "Nädogry telefon belgi!!!", nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
 	// validate phone number
 
 	if err := contactHandler.contactService.UpdateContact(contactID, contactRequest); err != nil {
