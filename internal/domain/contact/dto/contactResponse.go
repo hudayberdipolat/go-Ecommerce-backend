@@ -9,7 +9,7 @@ type ContactResponse struct {
 	Address     string `json:"address"`
 }
 
-func NewContactResponse(contact models.Contact) ContactResponse {
+func NewContactResponse(contact *models.Contact) ContactResponse {
 	return ContactResponse{
 		ID:          contact.ID,
 		PhoneNumber: contact.PhoneNumber,
