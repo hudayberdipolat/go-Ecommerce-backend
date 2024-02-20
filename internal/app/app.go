@@ -30,7 +30,7 @@ func NewApp(dependencies *Dependencies) (httpServer *fiber.App) {
 
 	router.AdminRoutes(httpServer)
 	router.UserRoutes(httpServer)
-	router.StaticFile(httpServer)
+	router.StaticFile(httpServer, dependencies.Config)
 
 	return httpServer
 }
