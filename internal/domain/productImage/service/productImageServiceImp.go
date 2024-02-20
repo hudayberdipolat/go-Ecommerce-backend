@@ -1,6 +1,8 @@
 package service
 
 import (
+	"errors"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/productImage/dto"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/productImage/repository"
@@ -26,8 +28,15 @@ func (productImageSerive productImageServiceImp) CreateProductImage(ctx *fiber.C
 		return err
 	}
 
-	// file upload
+	// image not empty validate
 
+	image, _ := ctx.FormFile("product_image")
+
+	if image == nil {
+		return errors.New("product image empty ")
+	}
+
+	// file upload
 	path, err := utils.UploadFile(ctx, "product_image", config.FolderConfig.PublicPath, "product-images")
 	if err != nil {
 		return err

@@ -17,5 +17,5 @@ var (
 func ProductImageRequirementsCreator(db *gorm.DB, config *config.Config) {
 	productImageRepo = repository.NewProductImageRepository(db)
 	productImageService = service.NewProductImageService(productImageRepo)
-	ProductImageHandler = handler.NewProductImageHandler(productImageService)
+	ProductImageHandler = handler.NewProductImageHandler(productImageService, config)
 }
