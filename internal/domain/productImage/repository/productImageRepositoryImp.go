@@ -15,7 +15,7 @@ func NewProductImageRepository(db *gorm.DB) ProductImageRepository {
 	}
 }
 
-func (prodImageRepo productImageRepositoryImp) GetOne(productImageID, productID int) (*models.ProductImage, error) {
+func (prodImageRepo productImageRepositoryImp) GetOneProductImage(productID, productImageID int) (*models.ProductImage, error) {
 	var productImage models.ProductImage
 	err := prodImageRepo.db.Where("id=?", productImageID).Where("product_id=?", productID).First(&productImage).Error
 	if err != nil {
@@ -31,7 +31,7 @@ func (prodImageRepo productImageRepositoryImp) Create(image models.ProductImage)
 	return nil
 }
 
-func (prodImageRepo productImageRepositoryImp) Delete(productImageID, productID int) error {
+func (prodImageRepo productImageRepositoryImp) Delete(productID, productImageID int) error {
 	var productImage models.ProductImage
 	err := prodImageRepo.db.Where("id=?", productImageID).Where("product_id=?", productID).Unscoped().Delete(&productImage).Error
 	if err != nil {
