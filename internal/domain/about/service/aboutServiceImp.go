@@ -17,9 +17,29 @@ func NewAboutService(repo repository.AboutRepository) AboutService {
 }
 
 func (aboutService aboutServiceImp) GetOneAbout(aboutID int) (*dto.AboutResponse, error) {
-	panic("about service imp")
+	about, err := aboutService.aboutRepo.GetOne(aboutID)
+	if err != nil {
+		return nil, err
+	}
+
+	aboutResponse := dto.NewAboutResponse(about)
+	return &aboutResponse, nil
 }
 
 func (aboutService aboutServiceImp) UpdateAbout(aboutID int, about models.About) error {
-	panic("about service imp")
+
+	updateAbout, err := aboutService.aboutRepo.GetOne(aboutID)
+	if err != nil {
+		return err
+	}
+
+	// update about data
+	updateAbout.AboutDesc = about.AboutDesc
+	updateAbout.LocationMapHtml = about.LocationMapHtml
+
+	// update about
+	if err := aboutService.aboutRepo.Update(updateAbout.ID, *updateAbout); err != nil {
+		return err
+	}
+	return nil
 }
