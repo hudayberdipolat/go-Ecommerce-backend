@@ -39,5 +39,5 @@ func AdminRoutes(app *fiber.App) {
 	// product images route
 	productImageRoute := adminApi.Group("products/:productID/product-images")
 	productImageRoute.Post("/create", productImageConstructor.ProductImageHandler.Create)
-	productImageRoute.Delete("/:productImageID/delete", productImageConstructor.ProductImageHandler.Create)
+	productImageRoute.Delete("/:productImageID/delete", productImageConstructor.ProductImageHandler.Delete)
 }

@@ -25,7 +25,7 @@ func (prodImageRepo productImageRepositoryImp) GetOneProductImage(productID, pro
 }
 
 func (prodImageRepo productImageRepositoryImp) Create(image models.ProductImage) error {
-	if err := prodImageRepo.db.Create(image).Error; err != nil {
+	if err := prodImageRepo.db.Create(&image).Error; err != nil {
 		return err
 	}
 	return nil
