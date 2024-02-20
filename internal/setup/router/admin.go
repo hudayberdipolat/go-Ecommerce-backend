@@ -5,6 +5,7 @@ import (
 	BrendConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brend/constructor"
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
 	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
+	productImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/productImage/constructor"
 )
 
 func AdminRoutes(app *fiber.App) {
@@ -35,4 +36,8 @@ func AdminRoutes(app *fiber.App) {
 	productRoute.Put("/:productID/update", productConstructor.ProductHandler.Update)
 	productRoute.Delete("/:productID/delete", productConstructor.ProductHandler.Delete)
 
+	// product images route
+	productImageRoute := adminApi.Group("products/:productID/product-images")
+	productImageRoute.Post("/create", productImageConstructor.ProductImageHandler.Create)
+	productImageRoute.Delete("/:productImageID/delete", productImageConstructor.ProductImageHandler.Create)
 }
