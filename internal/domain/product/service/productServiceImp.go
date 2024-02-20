@@ -43,7 +43,7 @@ func (p productServiceImp) GetAllProduct() ([]dto.AllProductResponse, error) {
 func (p productServiceImp) CreateProduct(ctx *fiber.Ctx, config *config.Config, request dto.CreateProductRequest) error {
 
 	// file upload
-	path, err := utils.UploadFile(ctx, "image_url", config.FolderConfig.PublicPath, "product-images")
+	path, err := utils.UploadFile(ctx, "main_image", config.FolderConfig.PublicPath, "product-images")
 	if err != nil {
 		return err
 	}
@@ -58,6 +58,8 @@ func (p productServiceImp) CreateProduct(ctx *fiber.Ctx, config *config.Config, 
 		Price:         request.Price,
 		TotalCount:    request.TotalCount,
 		GalanSany:     request.TotalCount,
+		CategoryID:    request.CategoryID,
+		BrendID:       request.BrendID,
 	}
 
 	if err := p.productRepo.Create(createProduct); err != nil {
@@ -96,6 +98,8 @@ func (p productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *config.Config, 
 	updateProduct.ProductNameTk = request.Price
 	updateProduct.TotalCount = request.TotalCount
 	updateProduct.GalanSany = request.GalanSany
+	updateProduct.CategoryID = request.CategoryID
+	updateProduct.BrendID = request.BrendID
 
 	if err := p.productRepo.Update(updateProduct.ID, *updateProduct); err != nil {
 		return err
@@ -107,6 +111,12 @@ func (p productServiceImp) DeleteProduct(productID int) error {
 	deleteProduct, err := p.productRepo.FindOne(productID)
 	if err != nil {
 		return errors.New("product not found")
+	}
+
+	// product image delete
+
+	if err := utils.DeleteFile(*deleteProduct.MainImage); err != nil {
+		return err
 	}
 
 	if err := p.productRepo.Delete(deleteProduct.ID); err != nil {

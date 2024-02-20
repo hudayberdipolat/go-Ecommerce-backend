@@ -2,6 +2,7 @@ package service
 
 import (
 	"errors"
+	"log"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gosimple/slug"
@@ -45,7 +46,8 @@ func (b brendServiceImp) CreateBrend(ctx *fiber.Ctx, config config.Config, creat
 	checkBrendName := b.brendRepo.CheckBrendName(createRequest.BrendNameTk, createRequest.BrendNameRu)
 
 	// egerde brend ady on bar bolsa onda onda return error
-	if checkBrendName != true {
+	if !checkBrendName {
+		log.Println(checkBrendName)
 		return errors.New("Bu brend ady eýýäm ulanylýar!!!")
 	}
 	// brend ady on yok bolsa onda image upload image
@@ -87,7 +89,7 @@ func (b brendServiceImp) UpdateBrend(ctx *fiber.Ctx, config config.Config, brend
 			return err
 		}
 		// new image upload
-		path, errFileUpload := utils.UploadFile(ctx, "brend_image", config.FolderConfig.PublicPath, "postImages")
+		path, errFileUpload := utils.UploadFile(ctx, "brend_image", config.FolderConfig.PublicPath, "brend-images")
 		if errFileUpload != nil {
 			return errFileUpload
 		}

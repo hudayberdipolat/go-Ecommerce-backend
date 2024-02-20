@@ -62,9 +62,7 @@ func (b brendRepositoryImp) Delete(brendID int) error {
 
 func (b brendRepositoryImp) CheckBrendName(brendNameTk, brendNameRu string) bool {
 	var brend models.Brend
-	if err := b.db.Where("brend_name_tk =? OR brend_name_ru=?", brendNameTk, brendNameRu).First(&brend).Error; err != nil {
-		return false
-	}
+	b.db.Where("brend_name_tk =? OR brend_name_ru=?", brendNameTk, brendNameRu).First(&brend)
 	if brend.ID == 0 {
 		return true
 	}

@@ -60,7 +60,7 @@ func (service categoryServiceImp) UpdateCategory(categoryID int, request dto.Upd
 	}
 
 	getCategory.CategoryNameTK = request.CategoryNameTK
-	getCategory.CategoryNameRU = request.CategoryNameTK
+	getCategory.CategoryNameRU = request.CategoryNameRU
 	getCategory.CategoryStatus = request.CategoryStatus
 	getCategory.CategorySlug = slug.Make(getCategory.CategoryNameTK)
 
