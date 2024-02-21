@@ -17,7 +17,15 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 	}
 }
 
-func (userRepo userRepositoryImp) GetOne(phoneNumber string) (*models.User, error) {
+func (userRepo userRepositoryImp) GetOneUserWithID(userID int) (*models.User, error) {
+	var user models.User
+	if err := userRepo.db.First(&user, userID).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (userRepo userRepositoryImp) GetOneUserWithPhoneNumber(phoneNumber string) (*models.User, error) {
 	var user models.User
 
 	if err := userRepo.db.Where("phone_number=?", phoneNumber).First(&user).Error; err != nil {

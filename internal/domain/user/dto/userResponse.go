@@ -13,7 +13,7 @@ type AuthUserReponse struct {
 	AccessToken string `json:"access_token"`
 }
 
-func NewAuthUserResponse(user models.User, accessToken string) AuthUserReponse {
+func NewAuthUserResponse(user *models.User, accessToken string) AuthUserReponse {
 	return AuthUserReponse{
 		ID:          user.ID,
 		Firstname:   user.Firstname,
