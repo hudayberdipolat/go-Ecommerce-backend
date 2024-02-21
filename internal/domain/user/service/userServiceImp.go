@@ -7,6 +7,7 @@ import (
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/user/dto"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/user/repository"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/jwtToken/userToken"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -46,7 +47,13 @@ func (userService userServiceImp) Register(registerData dto.RegisterRequest) (*d
 
 	// generate token
 
-	registerResponse := dto.NewAuthUserResponse(getUser, "")
+	accessToken, err := userToken.GenerateUserToken(getUser.ID, getUser.PhoneNumber, getUser.UserStatus)
+
+	if err != nil {
+		return nil, err
+	}
+
+	registerResponse := dto.NewAuthUserResponse(getUser, accessToken)
 	return &registerResponse, nil
 }
 
@@ -60,7 +67,15 @@ func (userService userServiceImp) Login(loginData dto.LoginRequest) (*dto.AuthUs
 		return nil, errors.New("Nädogry telefon belgi ýa-da password")
 	}
 
-	loginResponse := dto.NewAuthUserResponse(getUser, "")
+	// generate token
+
+	accessToken, err := userToken.GenerateUserToken(getUser.ID, getUser.PhoneNumber, getUser.UserStatus)
+
+	if err != nil {
+		return nil, err
+	}
+
+	loginResponse := dto.NewAuthUserResponse(getUser, accessToken)
 	return &loginResponse, nil
 
 }
