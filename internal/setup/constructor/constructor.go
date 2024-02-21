@@ -8,6 +8,7 @@ import (
 	contactConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
 	productconstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	productImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/productImage/constructor"
+	userConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/user/constructor"
 )
 
 func Build(dependencies *app.Dependencies) {
@@ -17,4 +18,5 @@ func Build(dependencies *app.Dependencies) {
 	productImageConstructor.ProductImageRequirementsCreator(dependencies.DB, dependencies.Config)
 	contactConstructor.ContactRequirementsCreator(dependencies.DB)
 	aboutConstructor.AboutRequirementsCreator(dependencies.DB)
+	userConstructor.UserRequirementsCreator(dependencies.DB)
 }
