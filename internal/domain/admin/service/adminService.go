@@ -10,5 +10,5 @@ type AdminService interface {
 	UpdateAdminPassword(adminID int, requet dto.UpdateAdminPasswordRequest) error
 	DeleteAdmin(adminID int) error
 	//
-	LoginAdmin(request dto.AdminLoginRequest) (dto.AdminAuthResponse, error)
+	LoginAdmin(request dto.AdminLoginRequest) (*dto.AdminAuthResponse, error)
 }

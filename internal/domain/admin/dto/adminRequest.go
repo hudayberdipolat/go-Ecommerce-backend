@@ -19,6 +19,7 @@ type UpdateAdminDataRequest struct {
 	Surname     string `json:"surname" validate:"requried"`
 	PhoneNumber string `json:"phone_number" validate:"requried"`
 	AdminRole   string `json:"admin_role" validate:"requried"`
+	AdminStatus string `json:"admin_status" validate:"requried"`
 }
 
 type UpdateAdminPasswordRequest struct {
