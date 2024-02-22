@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/gofiber/fiber/v2"
 	aboutConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/about/constructor"
+	adminConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/admin/constructor"
 	BrendConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brend/constructor"
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
 	contactConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
@@ -15,14 +16,17 @@ func AdminRoutes(app *fiber.App) {
 	adminApi := app.Group("/api/admin")
 
 	// admin  auth
+	adminAuth := app.Group("/api/auth")
+	adminAuth.Post("/login", adminConstructor.AdminHandler.Login)
 
-	/* super admin edip bilmeli
-	----> get one admin
-	----> get all admins
-	----> create admin
-	----> updated admin
-	----> delete admin
-	*/
+	// super admin for admin routes
+	adminRoute := adminApi.Group("admins")
+	adminRoute.Get("/", adminConstructor.AdminHandler.GetAll)
+	adminRoute.Get("/", adminConstructor.AdminHandler.GetOne)
+	adminRoute.Post("/", adminConstructor.AdminHandler.Create)
+	adminRoute.Put("/", adminConstructor.AdminHandler.UpdateData)
+	adminRoute.Put("/", adminConstructor.AdminHandler.UpdatePassword)
+	adminRoute.Delete("/", adminConstructor.AdminHandler.Delete)
 
 	// category routes
 	categoryRoute := adminApi.Group("categories")
