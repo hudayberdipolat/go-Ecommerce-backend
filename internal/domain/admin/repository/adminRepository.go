@@ -7,7 +7,7 @@ type AdminRepository interface {
 	FindOneAdminWithID(adminID int) (*models.Admin, error)
 	Create(admin models.Admin) error
 	UpdateAdminData(adminID int, admin models.Admin) error
-	UpdateAdminPassword(adminID int, admin models.Admin) error
+	UpdateAdminPassword(adminID int, newPassword string) error
 	Delete(adminID int) error
 
 	//
