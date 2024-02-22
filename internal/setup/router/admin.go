@@ -14,6 +14,16 @@ func AdminRoutes(app *fiber.App) {
 	// admin routes api
 	adminApi := app.Group("/api/admin")
 
+	// admin  auth
+
+	/* super admin edip bilmeli
+	----> get one admin
+	----> get all admins
+	----> create admin
+	----> updated admin
+	----> delete admin
+	*/
+
 	// category routes
 	categoryRoute := adminApi.Group("categories")
 	categoryRoute.Get("/", categoryConstructor.CategoryHandler.GetAll)
