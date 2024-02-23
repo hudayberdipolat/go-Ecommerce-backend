@@ -9,6 +9,7 @@ import (
 	contactConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
 	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	productImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/productImage/constructor"
+	roleConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/role/constructor"
 )
 
 func AdminRoutes(app *fiber.App) {
@@ -22,11 +23,19 @@ func AdminRoutes(app *fiber.App) {
 	// super admin for admin routes
 	adminRoute := adminApi.Group("admins")
 	adminRoute.Get("/", adminConstructor.AdminHandler.GetAll)
-	adminRoute.Get("/", adminConstructor.AdminHandler.GetOne)
-	adminRoute.Post("/", adminConstructor.AdminHandler.Create)
-	adminRoute.Put("/", adminConstructor.AdminHandler.UpdateData)
-	adminRoute.Put("/", adminConstructor.AdminHandler.UpdatePassword)
-	adminRoute.Delete("/", adminConstructor.AdminHandler.Delete)
+	adminRoute.Get("/:adminID", adminConstructor.AdminHandler.GetOne)
+	adminRoute.Post("/create", adminConstructor.AdminHandler.Create)
+	adminRoute.Put("/update-data", adminConstructor.AdminHandler.UpdateData)
+	adminRoute.Put("/update-password", adminConstructor.AdminHandler.UpdatePassword)
+	adminRoute.Delete("/:adminID/delete", adminConstructor.AdminHandler.Delete)
+
+	// role routes
+	roleRoute := adminApi.Group("roles")
+	roleRoute.Get("/", roleConstructor.RoleHandler.GetAll)
+	roleRoute.Get("/:roleID", roleConstructor.RoleHandler.GetOne)
+	roleRoute.Post("/create", roleConstructor.RoleHandler.Create)
+	roleRoute.Put("/:roleID/update", roleConstructor.RoleHandler.Update)
+	roleRoute.Delete("/:roleID/delete", roleConstructor.RoleHandler.Delete)
 
 	// category routes
 	categoryRoute := adminApi.Group("categories")

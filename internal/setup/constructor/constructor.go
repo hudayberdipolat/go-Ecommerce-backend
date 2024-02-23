@@ -9,11 +9,13 @@ import (
 	contactConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
 	productconstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	productImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/productImage/constructor"
+	roleConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/role/constructor"
 	userConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/user/constructor"
 )
 
 func Build(dependencies *app.Dependencies) {
 	adminConstructor.AdminRequirementsCreator(dependencies.DB)
+	roleConstructor.RoleRequirementsCreator(dependencies.DB)
 	userConstructor.UserRequirementsCreator(dependencies.DB)
 
 	categoryConstructor.CategoryRequirementsCreator(dependencies.DB)
