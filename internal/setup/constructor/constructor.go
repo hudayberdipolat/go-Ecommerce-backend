@@ -7,6 +7,7 @@ import (
 	brendConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brend/constructor"
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
 	contactConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
+	permissionConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/permission/constructor"
 	productconstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	productImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/productImage/constructor"
 	roleConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/role/constructor"
@@ -16,6 +17,8 @@ import (
 func Build(dependencies *app.Dependencies) {
 	adminConstructor.AdminRequirementsCreator(dependencies.DB)
 	roleConstructor.RoleRequirementsCreator(dependencies.DB)
+	permissionConstructor.PermissionRequirementsCreator(dependencies.DB)
+
 	userConstructor.UserRequirementsCreator(dependencies.DB)
 
 	categoryConstructor.CategoryRequirementsCreator(dependencies.DB)

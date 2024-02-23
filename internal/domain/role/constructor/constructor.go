@@ -9,12 +9,12 @@ import (
 
 var (
 	roleRepo    repository.RoleRepository
-	roleServce  service.RoleService
+	roleService service.RoleService
 	RoleHandler handler.RoleHandler
 )
 
 func RoleRequirementsCreator(db *gorm.DB) {
 	roleRepo = repository.NewRoleRepository(db)
-	roleServce = service.NewRoleService(roleRepo)
-	RoleHandler = handler.NewRoleHandler(roleServce)
+	roleService = service.NewRoleService(roleRepo)
+	RoleHandler = handler.NewRoleHandler(roleService)
 }

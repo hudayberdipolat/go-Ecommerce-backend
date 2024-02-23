@@ -7,6 +7,7 @@ import (
 	BrendConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brend/constructor"
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
 	contactConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
+	permissionConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/permission/constructor"
 	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	productImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/productImage/constructor"
 	roleConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/role/constructor"
@@ -36,6 +37,15 @@ func AdminRoutes(app *fiber.App) {
 	roleRoute.Post("/create", roleConstructor.RoleHandler.Create)
 	roleRoute.Put("/:roleID/update", roleConstructor.RoleHandler.Update)
 	roleRoute.Delete("/:roleID/delete", roleConstructor.RoleHandler.Delete)
+
+	// permission routes
+
+	permissionRoute := adminApi.Group("permissions")
+	permissionRoute.Get("/", permissionConstructor.PermissionHandler.GetAll)
+	permissionRoute.Get("/:permissionID", permissionConstructor.PermissionHandler.GetOne)
+	permissionRoute.Post("/create", permissionConstructor.PermissionHandler.Create)
+	permissionRoute.Put("/:permissionID/update", permissionConstructor.PermissionHandler.Update)
+	permissionRoute.Delete("/:permissionID/delete", permissionConstructor.PermissionHandler.Delete)
 
 	// category routes
 	categoryRoute := adminApi.Group("categories")

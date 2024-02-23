@@ -15,7 +15,7 @@ type permissionHandlerImp struct {
 	permissionService service.PermissionService
 }
 
-func NewRoleHandler(service service.PermissionService) PermissionHandler {
+func NewPermissionHandler(service service.PermissionService) PermissionHandler {
 	return permissionHandlerImp{
 		permissionService: service,
 	}
