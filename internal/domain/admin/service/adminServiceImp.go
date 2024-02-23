@@ -7,6 +7,7 @@ import (
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/admin/dto"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/admin/repository"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/jwtToken/adminToken"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -122,9 +123,14 @@ func (adminService adminServiceImp) LoginAdmin(request dto.AdminLoginRequest) (*
 	}
 
 	// generate admin token
+	accessToken, err := adminToken.GenerateAdminToken(getAdmin.ID, getAdmin.PhoneNumber, getAdmin.AdminStatus)
+
+	if err != nil {
+		return nil, err
+	}
 
 	// return admin response
-	adminResponse := dto.NewAdminAuthResponse(getAdmin, "")
+	adminResponse := dto.NewAdminAuthResponse(getAdmin, accessToken)
 	return &adminResponse, nil
 
 }
