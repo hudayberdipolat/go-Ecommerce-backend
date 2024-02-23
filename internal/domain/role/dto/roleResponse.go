@@ -7,7 +7,7 @@ type RoleResponse struct {
 	RoleName string `json:"role_name"`
 }
 
-func NewOneRoleResponse(role models.Role) RoleResponse {
+func NewOneRoleResponse(role *models.Role) RoleResponse {
 	return RoleResponse{
 		ID:       role.ID,
 		RoleName: role.RoleName,
@@ -17,7 +17,10 @@ func NewOneRoleResponse(role models.Role) RoleResponse {
 func NewAllRoleResponse(roles []models.Role) []RoleResponse {
 	var allRoleResponses []RoleResponse
 	for _, role := range roles {
-		roleResponse := NewOneRoleResponse(role)
+		roleResponse := RoleResponse{
+			ID:       role.ID,
+			RoleName: role.RoleName,
+		}
 		allRoleResponses = append(allRoleResponses, roleResponse)
 	}
 	return allRoleResponses

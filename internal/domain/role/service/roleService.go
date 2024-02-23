@@ -6,6 +6,6 @@ type RoleService interface {
 	GetOneRole(roleID int) (*dto.RoleResponse, error)
 	GetAllRole() ([]dto.RoleResponse, error)
 	CreateRole(request dto.RoleRequest) error
-	UpdateRole(request dto.RoleRequest) error
+	UpdateRole(roleID int, request dto.RoleRequest) error
 	DeleteRole(roleID int) error
 }
