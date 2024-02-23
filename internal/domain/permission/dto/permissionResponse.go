@@ -7,7 +7,7 @@ type PermissionResponse struct {
 	PermissionName string `json:"permission_name"`
 }
 
-func NewOneRoleResponse(permission *models.Permission) PermissionResponse {
+func NewOnePermissionResponse(permission *models.Permission) PermissionResponse {
 	return PermissionResponse{
 		ID:             permission.ID,
 		PermissionName: permission.PermissionName,

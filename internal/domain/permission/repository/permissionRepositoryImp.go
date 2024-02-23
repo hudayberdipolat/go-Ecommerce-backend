@@ -11,7 +11,7 @@ type permissionRepositoryImp struct {
 	db *gorm.DB
 }
 
-func NewRoleRepository(db *gorm.DB) PermissionRepository {
+func NewPermissionRepository(db *gorm.DB) PermissionRepository {
 	return permissionRepositoryImp{
 		db: db,
 	}
@@ -36,7 +36,7 @@ func (permissionRepo permissionRepositoryImp) FindAll() ([]models.Permission, er
 func (permissionRepo permissionRepositoryImp) Create(role models.Permission) error {
 	if err := permissionRepo.db.Create(&role).Error; err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) {
-			return errors.New("Bu role ady eýýäm bar!!!")
+			return errors.New("Bu permission ady eýýäm bar!!!")
 		}
 		return err
 	}
@@ -46,7 +46,7 @@ func (permissionRepo permissionRepositoryImp) Create(role models.Permission) err
 func (permissionRepo permissionRepositoryImp) Update(permissionID int, role models.Permission) error {
 	if err := permissionRepo.db.Model(&models.Permission{}).Where("id=?", permissionID).Updates(&role).Error; err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) {
-			return errors.New("Bu role ady eýýäm bar!!!")
+			return errors.New("Bu permission ady eýýäm bar!!!")
 		}
 		return err
 	}
