@@ -29,7 +29,7 @@ func (p productRepositoryImp) FindOne(productID int) (*models.Product, error) {
 func (p productRepositoryImp) FindAll() ([]models.Product, error) {
 	var products []models.Product
 
-	if err := p.db.Find(&products).Error; err != nil {
+	if err := p.db.Preload("Category").Preload("Brend").Preload("ProductImages").Find(&products).Error; err != nil {
 		return nil, err
 	}
 	return products, nil
