@@ -123,7 +123,7 @@ func (adminService adminServiceImp) LoginAdmin(request dto.AdminLoginRequest) (*
 	}
 
 	// generate admin token
-	accessToken, err := adminToken.GenerateAdminToken(getAdmin.ID, getAdmin.PhoneNumber, getAdmin.AdminStatus)
+	accessToken, err := adminToken.GenerateAdminToken(getAdmin.ID, getAdmin.PhoneNumber, getAdmin.AdminRole, getAdmin.AdminStatus)
 
 	if err != nil {
 		return nil, err

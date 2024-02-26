@@ -26,15 +26,15 @@ func UserMiddleware(ctx *fiber.Ctx) error {
 	return ctx.Next()
 }
 
-func verifyUserToken(tokenString string) (*userToken.Claims, error) {
+func verifyUserToken(tokenString string) (*userToken.UserClaims, error) {
 	//userToken.SecretKey
-	token, err := jwt.ParseWithClaims(tokenString, &userToken.Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return userToken.SecretKey, nil
+	token, err := jwt.ParseWithClaims(tokenString, &userToken.UserClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return userToken.SecretUserKey, nil
 	})
 	if err != nil {
 		return nil, err
 	}
-	if claims, ok := token.Claims.(*userToken.Claims); ok && token.Valid {
+	if claims, ok := token.Claims.(*userToken.UserClaims); ok && token.Valid {
 		return claims, nil
 	}
 	return nil, fmt.Errorf("Invalid token")
