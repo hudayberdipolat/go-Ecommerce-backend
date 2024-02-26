@@ -1,9 +1,0 @@
-{"level":"info","time":"2024-02-15T13:47:05+05:00","caller":"dependencies.go:32","message":"-------------------------------------------"}
-{"level":"info","time":"2024-02-15T13:47:05+05:00","caller":"dependencies.go:40","message":"Database connection successfully"}
-{"level":"info","time":"2024-02-15T13:47:05+05:00","caller":"main.go:22","message":"Project run successfully"}
-{"level":"info","time":"2024-02-15T13:58:57+05:00","caller":"dependencies.go:38","message":"-------------------------------------------"}
-{"level":"info","time":"2024-02-15T13:58:57+05:00","caller":"dependencies.go:46","message":"Database connection successfully"}
-{"level":"info","time":"2024-02-15T13:58:57+05:00","caller":"main.go:22","message":"Project run successfully"}
-{"level":"info","time":"2024-02-15T14:06:38+05:00","caller":"dependencies.go:38","message":"-------------------------------------------"}
-{"level":"info","time":"2024-02-15T14:06:38+05:00","caller":"dependencies.go:46","message":"Database connection successfully"}
-{"level":"info","time":"2024-02-15T14:06:38+05:00","caller":"main.go:19","message":"Project run successfully"}

@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"log"
+
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
 	"gorm.io/gorm"
 )
@@ -17,9 +19,10 @@ func NewProductRepository(db *gorm.DB) ProductRepository {
 
 func (p productRepositoryImp) FindOne(productID int) (*models.Product, error) {
 	var product models.Product
-	if err := p.db.First(&product, productID).Error; err != nil {
+	if err := p.db.Preload("Category").Preload("Brend").Preload("ProductImages").First(&product, productID).Error; err != nil {
 		return nil, err
 	}
+	log.Println(product)
 	return &product, nil
 }
 
