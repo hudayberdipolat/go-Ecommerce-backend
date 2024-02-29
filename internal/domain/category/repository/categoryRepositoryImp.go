@@ -59,3 +59,11 @@ func (repo categoryRepositoryImp) Delete(categoryID int) error {
 	}
 	return nil
 }
+
+func (repo categoryRepositoryImp) GetOneCategoryWithSlug(categorySlug string) (*models.Category, error) {
+	var category models.Category
+	if err := repo.db.Where("category_slug=?", categorySlug).First(&category).Error; err != nil {
+		return nil, err
+	}
+	return &category, nil
+}

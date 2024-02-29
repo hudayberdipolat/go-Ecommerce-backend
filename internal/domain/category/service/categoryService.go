@@ -8,4 +8,6 @@ type CategoryService interface {
 	CreateCategory(request dto.CreateCategoryRequest) error
 	UpdateCategory(categoryID int, request dto.UpdateCategoryRequest) error
 	DeleteCategory(categoryID int) error
+	// front
+	GetOneCategory(categorySlug string) (*dto.OneCategoryResponse, error)
 }

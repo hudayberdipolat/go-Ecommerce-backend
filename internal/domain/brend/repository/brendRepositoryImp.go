@@ -68,3 +68,11 @@ func (b brendRepositoryImp) CheckBrendName(brendNameTk, brendNameRu string) bool
 	}
 	return false
 }
+
+func (b brendRepositoryImp) GetOneBrendWithSlug(brendSlug string) (*models.Brend, error) {
+	var brend models.Brend
+	if err := b.db.Where("brend_slug=?", brendSlug).First(&brend).Error; err != nil {
+		return nil, err
+	}
+	return &brend, nil
+}

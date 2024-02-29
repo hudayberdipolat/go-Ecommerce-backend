@@ -105,3 +105,14 @@ func (b brendHandlerimp) Delete(ctx *fiber.Ctx) error {
 	successResponse := response.Success(http.StatusOK, "Brend deleted successfully", nil)
 	return ctx.Status(http.StatusOK).JSON(successResponse)
 }
+
+func (b brendHandlerimp) GetOneBrend(ctx *fiber.Ctx) error {
+	brendSlug := ctx.Params("brendSlug")
+	brend, err := b.brendService.GetOneBrendWithSlug(brendSlug)
+	if err != nil {
+		errResponse := response.Error(http.StatusNotFound, "brend not found", err.Error(), nil)
+		return ctx.Status(http.StatusNotFound).JSON(errResponse)
+	}
+	successResponse := response.Success(http.StatusOK, "get one brend", brend)
+	return ctx.Status(http.StatusOK).JSON(successResponse)
+}

@@ -124,3 +124,12 @@ func (b brendServiceImp) DeleteBrend(brendID int) error {
 	}
 	return nil
 }
+
+func (b brendServiceImp) GetOneBrendWithSlug(brendSlug string) (*dto.OneBrendResponse, error) {
+	brend, err := b.brendRepo.GetOneBrendWithSlug(brendSlug)
+	if err != nil {
+		return nil, err
+	}
+	brendResponse := dto.NewOneBrendResponse(brend)
+	return &brendResponse, nil
+}

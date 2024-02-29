@@ -12,4 +12,5 @@ type BrendService interface {
 	CreateBrend(ctx *fiber.Ctx, config config.Config, createRequest dto.CreateBrendRequest) error
 	UpdateBrend(ctx *fiber.Ctx, config config.Config, brendID int, updateRequest dto.UpdateBrendRequest) error
 	DeleteBrend(brendID int) error
+	GetOneBrendWithSlug(brendSlug string) (*dto.OneBrendResponse, error)
 }

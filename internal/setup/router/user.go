@@ -21,7 +21,7 @@ func UserRoutes(app *fiber.App) {
 	categoryRoute := userApi.Group("categories")
 	categoryRoute.Get("/", categoryConstructor.CategoryHandler.GetAll)
 	// category one get with  category slug
-	// categoryRoute.Get("/", categoryConstructor.CategoryHandler.GetOne)
+	categoryRoute.Get("/", categoryConstructor.CategoryHandler.GetOneCategory)
 
 	// products
 	productRoute := userApi.Group("products")
@@ -33,5 +33,5 @@ func UserRoutes(app *fiber.App) {
 	brendRoute := userApi.Group("brends")
 	brendRoute.Get("/", brendConstructor.BrendHandler.GetAll)
 	// brend get one with slug
-	// brendRoute.Get("/:brendSlug", brendConstructor.BrendHandler.GetAll)
+	brendRoute.Get("/:brendSlug", brendConstructor.BrendHandler.GetOneBrend)
 }

@@ -9,4 +9,5 @@ type BrendRepository interface {
 	Update(brendID int, brend models.Brend) error
 	Delete(brendID int) error
 	CheckBrendName(brendNameTk, brendNameRu string) bool
+	GetOneBrendWithSlug(brendSlug string) (*models.Brend, error)
 }

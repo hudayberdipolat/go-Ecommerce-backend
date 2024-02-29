@@ -83,3 +83,13 @@ func (service categoryServiceImp) DeleteCategory(categoryID int) error {
 	}
 	return nil
 }
+
+func (service categoryServiceImp) GetOneCategory(categorySlug string) (*dto.OneCategoryResponse, error) {
+	getCategory, err := service.categoryRepo.GetOneCategoryWithSlug(categorySlug)
+	if err != nil {
+		return nil, err
+	}
+	categoryResponse := dto.NewOneCategoryResponse(getCategory)
+
+	return &categoryResponse, nil
+}

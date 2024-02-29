@@ -104,3 +104,14 @@ func (handler categoryHandlerImp) Delete(ctx *fiber.Ctx) error {
 	successResponse := response.Success(http.StatusOK, "category deleted successfully", nil)
 	return ctx.Status(http.StatusOK).JSON(successResponse)
 }
+
+func (handler categoryHandlerImp) GetOneCategory(ctx *fiber.Ctx) error {
+	categorySlug := ctx.Params("categorySlug")
+	category, err := handler.categoryService.GetOneCategory(categorySlug)
+	if err != nil {
+		errResponse := response.Error(http.StatusNotFound, "category not found", err.Error(), nil)
+		return ctx.Status(http.StatusNotFound).JSON(errResponse)
+	}
+	successResponse := response.Success(http.StatusOK, "get one category", category)
+	return ctx.Status(http.StatusOK).JSON(successResponse)
+}
