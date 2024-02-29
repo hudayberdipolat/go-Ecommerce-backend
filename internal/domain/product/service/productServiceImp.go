@@ -124,3 +124,14 @@ func (p productServiceImp) DeleteProduct(productID int) error {
 	}
 	return nil
 }
+
+func (p productServiceImp) GetOneProductWithSlug(productSlug string) (*dto.OneProductResponse, error) {
+	getProduct, err := p.productRepo.FindOneProductWithSlug(productSlug)
+	if err != nil {
+		return nil, err
+	}
+
+	// product response
+	productResponse := dto.NewOneProductResponse(getProduct)
+	return &productResponse, nil
+}

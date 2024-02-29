@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"log"
-
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
 	"gorm.io/gorm"
 )
@@ -22,7 +20,6 @@ func (p productRepositoryImp) FindOne(productID int) (*models.Product, error) {
 	if err := p.db.Preload("Category").Preload("Brend").Preload("ProductImages").First(&product, productID).Error; err != nil {
 		return nil, err
 	}
-	log.Println(product)
 	return &product, nil
 }
 
@@ -54,4 +51,14 @@ func (p productRepositoryImp) Delete(productID int) error {
 		return err
 	}
 	return nil
+}
+
+func (p productRepositoryImp) FindOneProductWithSlug(productSlug string) (*models.Product, error) {
+	var product models.Product
+	err := p.db.Where("product_slug=?", productSlug).Preload("Category").
+		Preload("Brend").Preload("ProductImages").First(&product).Error
+	if err != nil {
+		return nil, err
+	}
+	return &product, nil
 }

@@ -104,3 +104,17 @@ func (p productHandlerImp) Delete(ctx *fiber.Ctx) error {
 	successResponse := response.Success(http.StatusOK, "product deleted successfully", nil)
 	return ctx.Status(http.StatusOK).JSON(successResponse)
 }
+
+// front for
+
+func (p productHandlerImp) GetOneProduct(ctx *fiber.Ctx) error {
+	productSlug := ctx.Params("productSlug")
+
+	product, err := p.productService.GetOneProductWithSlug(productSlug)
+	if err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "product not found", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+	successResponse := response.Success(http.StatusOK, "get one product data", product)
+	return ctx.Status(http.StatusOK).JSON(successResponse)
+}

@@ -8,4 +8,6 @@ type ProductRepository interface {
 	Create(product models.Product) error
 	Update(productID int, product models.Product) error
 	Delete(productID int) error
+
+	FindOneProductWithSlug(productSlug string) (*models.Product, error)
 }
