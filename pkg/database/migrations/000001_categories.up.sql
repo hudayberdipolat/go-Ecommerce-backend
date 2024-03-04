@@ -1,8 +1,12 @@
-CREATE TYPE  categoryStatus AS ENUM ('active','passive', 'draft');
-CREATE TABLE if NOT EXISTS categories(
+CREATE TYPE status as ENUM ('ACTIVE', 'PASSIVE', 'DRAFT'); 
+CREATE TABLE IF NOT EXISTS categories(
     id SERIAL PRIMARY KEY,
-    category_name_tk varchar(500) NOT NULL UNIQUE,
-    category_name_ru varchar(500) NOT NULL UNIQUE,
-    category_slug varchar(500) NOT NULL UNIQUE,
-    category_status categoryStatus DEFAULT 'draft'
+    category_name_tk VARCHAR(255) UNIQUE NOT NULL,
+    category_name_ru VARCHAR(255) UNIQUE NOT NULL,
+    category_name_en VARCHAR(255) UNIQUE NOT NULL,
+    category_slug VARCHAR(255) NOT NULL,
+    category_image_url VARCHAR(255) NOT NULL,
+    category_status status DEFAULT 'DRAFT',
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP
 );
