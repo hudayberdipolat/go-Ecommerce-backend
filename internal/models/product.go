@@ -7,6 +7,7 @@ type Product struct {
 	ProductNameTk       string      `json:"product_name_tk"`
 	ProductNameRu       string      `json:"product_name_ru"`
 	ProductNameEn       string      `json:"product_name_en"`
+	ProductSlug         string      `json:"product_slug"`
 	ProductShortDescTk  string      `json:"product_short_desc_tk"`
 	ProductShortDescRU  string      `json:"product_short_desc_ru"`
 	ProductShortDescEn  string      `json:"product_short_desc_en"`

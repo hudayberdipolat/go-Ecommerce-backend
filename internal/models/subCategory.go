@@ -2,14 +2,14 @@ package models
 
 type SubCategory struct {
 	ID                  int
-	SubCategoryTk       string   `json:"sub_category_tk"`
-	SubCategoryRu       string   `json:"sub_category_ru"`
-	SubCategoryEn       string   `json:"sub_category_en"`
+	SubCategoryNameTk   string   `json:"sub_category_tk"`
+	SubCategoryNameRu   string   `json:"sub_category_ru"`
+	SubCategoryNameEn   string   `json:"sub_category_en"`
 	SubCategoryImageURL string   `json:"sub_category_image_url"`
 	SubCategorySlug     string   `json:"sub_category_slug"`
 	SubCategoryStatus   string   `json:"sub_category_status"`
 	CategoryID          int      `json:"category_id"`
-	Category            Category `json:"category"`
+	Category            Category `json:"category" gorm:"foreignKey:CategoryID;references:ID"` // BelongsTo is correct
 }
 
 func (*SubCategory) TableName() string {
