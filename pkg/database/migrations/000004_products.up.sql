@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS products(
-    ID SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     product_name_tk VARCHAR(500) UNIQUE NOT NULL,
     product_name_ru VARCHAR(500) UNIQUE NOT NULL,
     product_name_en VARCHAR(500) UNIQUE NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS products(
     product_short_desc_tk TEXT NOT NULL,
     product_short_desc_ru TEXT NOT NULL,
     product_short_desc_en TEXT NOT NULL,
-    product_main_image VARCHAR(255) NOT NULL,
+    product_main_image_url VARCHAR(255) NOT NULL,
     product_model VARCHAR(100) NOT NULL,
     original_price NUMERIC(10,2) NOT NULL,
     discount_price NUMERIC(10,2),

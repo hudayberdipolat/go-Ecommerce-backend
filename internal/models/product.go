@@ -1,24 +1,28 @@
 package models
 
-type Product struct {
-	ID            int            `json:"id"`
-	ProductNameTk string         `json:"product_name_tk"`
-	ProductNameRu string         `json:"product_name_ru"`
-	ProductSlug   string         `json:"product_slug"`
-	ProductDescTk string         `json:"product_desc_tk"`
-	ProductDescRu string         `json:"product_desc_ru"`
-	ProductStatus string         `json:"product_status"`
-	MainImage     *string        `json:"Main_image"`
-	Price         string         `json:"price"`
-	TotalCount    int            `json:"total_count"`
-	GalanSany     int            `json:"galan_sany"`
-	CategoryID    int            `json:"category_id"`
-	Category      Category       `json:"category"`
-	BrendID       int            `json:"brend_id"`
-	Brend         Brend          `json:"brend"`
-	ProductImages []ProductImage `json:"images"`
-}
+import "time"
 
-func (*Product) TableName() string {
-	return "products"
+type Product struct {
+	ID                  int
+	ProductNameTk       string      `json:"product_name_tk"`
+	ProductNameRu       string      `json:"product_name_ru"`
+	ProductNameEn       string      `json:"product_name_en"`
+	ProductShortDescTk  string      `json:"product_short_desc_tk"`
+	ProductShortDescRU  string      `json:"product_short_desc_ru"`
+	ProductShortDescEn  string      `json:"product_short_desc_en"`
+	ProductMainImageURL string      `json:"product_main_image_url"`
+	ProductModel        string      `json:"product_model"`
+	OriginalPrice       float32     `json:"original_price"`
+	DisCountPrice       float32     `json:"discount_price"`
+	DisCountTime        time.Time   `json:"discount_time"`
+	TotalCount          int         `json:"total_count"`
+	RestCount           int         `json:"rest_count"`
+	CategoryID          int         `json:"category_id"`
+	SubCategoryID       int         `json:"sub_category_id"`
+	BrandID             int         `json:"brand_id"`
+	Category            Category    `json:"category"`
+	SubCategory         SubCategory `json:"sub_category"`
+	Brand               Brand       `json:"brand"`
+	CreatedAt           time.Time   `json:"created_at"`
+	UpdatedAt           time.Time   `json:"updated_at"`
 }
