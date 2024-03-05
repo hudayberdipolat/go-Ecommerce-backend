@@ -61,14 +61,14 @@ type productBrand struct {
 	UpdatedAt     string  `json:"updated_at"`
 }
 
-func NewGetOneProductResponse(product models.Product) GetOneProductResponse {
+func NewGetOneProductResponse(product *models.Product) GetOneProductResponse {
 	return GetOneProductResponse{
 		ProductNameTk:       product.ProductNameTk,
 		ProductNameRu:       product.ProductNameRu,
 		ProductNameEn:       product.ProductNameEn,
 		ProductSlug:         product.ProductSlug,
 		ProductShortDescTk:  product.ProductShortDescTk,
-		ProductShortDescRU:  product.ProductShortDescRU,
+		ProductShortDescRU:  product.ProductShortDescRu,
 		ProductShortDescEn:  product.ProductShortDescEn,
 		ProductMainImageURL: product.ProductMainImageURL,
 		ProductModel:        product.ProductModel,
@@ -127,7 +127,7 @@ type GetAllProductResponse struct {
 	RestCount           int     `json:"rest_count"`
 }
 
-func NewGetAllResponse(products []models.Product) []GetAllProductResponse {
+func NewGetAllProductResponse(products []models.Product) []GetAllProductResponse {
 	var productResponses []GetAllProductResponse
 	for _, product := range products {
 		productResponse := GetAllProductResponse{

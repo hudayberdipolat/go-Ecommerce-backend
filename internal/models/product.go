@@ -9,7 +9,7 @@ type Product struct {
 	ProductNameEn       string      `json:"product_name_en"`
 	ProductSlug         string      `json:"product_slug"`
 	ProductShortDescTk  string      `json:"product_short_desc_tk"`
-	ProductShortDescRU  string      `json:"product_short_desc_ru"`
+	ProductShortDescRu  string      `json:"product_short_desc_ru"`
 	ProductShortDescEn  string      `json:"product_short_desc_en"`
 	ProductMainImageURL *string     `json:"product_main_image_url"`
 	ProductModel        string      `json:"product_model"`

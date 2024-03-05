@@ -59,7 +59,6 @@ func (productRepo productRepositoryImp) Update(productID int, product models.Pro
 
 func (productRepo productRepositoryImp) Destroy(productID int) error {
 	var deleteProduct models.Product
-
 	if err := productRepo.db.Where("id=?", productID).Unscoped().Delete(&deleteProduct).Error; err != nil {
 		return err
 	}
