@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	brandConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brand/constructor"
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
+	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	subCategoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/subCategory/constructor"
 )
 
@@ -38,4 +39,12 @@ func AdminRoutes(app *fiber.App) {
 	brandRoute.Put("/:brandID/update", brandConstructor.BrandHandler.Update)
 	brandRoute.Delete("/:brandID/delete", brandConstructor.BrandHandler.Delete)
 
+	// product routes
+
+	productRoute := adminApi.Group("products")
+	productRoute.Get("/", productConstructor.ProductHandler.GetAll)
+	productRoute.Get("/:productID", productConstructor.ProductHandler.GetOne)
+	productRoute.Post("/create", productConstructor.ProductHandler.Create)
+	productRoute.Put(":productID/update", productConstructor.ProductHandler.Update)
+	productRoute.Delete(":productID/delete", productConstructor.ProductHandler.Delete)
 }
