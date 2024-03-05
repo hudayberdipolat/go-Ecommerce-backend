@@ -3,7 +3,7 @@ package models
 import "time"
 
 type Product struct {
-	ID                  int
+	ID                  int         `json:"id"`
 	ProductNameTk       string      `json:"product_name_tk"`
 	ProductNameRu       string      `json:"product_name_ru"`
 	ProductNameEn       string      `json:"product_name_en"`
@@ -11,7 +11,7 @@ type Product struct {
 	ProductShortDescTk  string      `json:"product_short_desc_tk"`
 	ProductShortDescRU  string      `json:"product_short_desc_ru"`
 	ProductShortDescEn  string      `json:"product_short_desc_en"`
-	ProductMainImageURL string      `json:"product_main_image_url"`
+	ProductMainImageURL *string     `json:"product_main_image_url"`
 	ProductModel        string      `json:"product_model"`
 	ProductStatus       string      `json:"product_status"`
 	OriginalPrice       float32     `json:"original_price"`

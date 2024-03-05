@@ -23,7 +23,7 @@ type brandProductResponse struct {
 	ProductNameRu   string  `json:"product_name_ru"`
 	ProductNameEn   string  `json:"product_name_en"`
 	ProductSlug     string  `json:"product_slug"`
-	ProductImageURL string  `json:"product_image_url"`
+	ProductImageURL *string `json:"product_image_url"`
 	ProductStatus   string  `json:"product_status"`
 	OriginalPrice   float32 `json:"original_price"`
 	CreatedAt       string  `json:"created_at"`
