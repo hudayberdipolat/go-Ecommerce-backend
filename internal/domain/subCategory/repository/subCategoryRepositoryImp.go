@@ -15,18 +15,17 @@ func NewSubCategoryRespository(db *gorm.DB) SubCategoryRepository {
 	}
 }
 
-func (subCategoryRepo subcategoryRepositoryImp) FindOne(subCategoryID int) (*models.SubCategory, error) {
+func (subCategoryRepo subcategoryRepositoryImp) FindOne(categoryID, subCategoryID int) (*models.SubCategory, error) {
 	var subCategory models.SubCategory
-	if err := subCategoryRepo.db.First(&subCategory, subCategoryID).Error; err != nil {
+	if err := subCategoryRepo.db.Preload("Category").Preload("Products").Where("id=?", subCategoryID).Where("category_id=?", categoryID).First(&subCategory).Error; err != nil {
 		return nil, err
 	}
-
 	return &subCategory, nil
 }
 
-func (subCategoryRepo subcategoryRepositoryImp) FindAll() ([]models.SubCategory, error) {
+func (subCategoryRepo subcategoryRepositoryImp) FindAll(categoryID int) ([]models.SubCategory, error) {
 	var subCategories []models.SubCategory
-	if err := subCategoryRepo.db.Find(&subCategories).Error; err != nil {
+	if err := subCategoryRepo.db.Preload("Category").Preload("Products").Where("category_id=?", categoryID).Find(&subCategories).Error; err != nil {
 		return nil, err
 	}
 	return subCategories, nil

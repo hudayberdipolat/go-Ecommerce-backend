@@ -26,8 +26,15 @@ func NewSubCategoryService(repo repository.SubCategoryRepository, categoryRepo c
 	}
 }
 
-func (subCategoryService subcategoryServiceImp) GetOneSubCategory(subCategoryID int) (*dto.GetOneSubCategoryResponse, error) {
-	subCategory, err := subCategoryService.subCategoryRepo.FindOne(subCategoryID)
+func (subCategoryService subcategoryServiceImp) GetOneSubCategory(categoryID, subCategoryID int) (*dto.GetOneSubCategoryResponse, error) {
+	// get category
+
+	category, err := subCategoryService.categoryRepo.FindOneByID(categoryID)
+	if err != nil {
+		return nil, errors.New("category not found")
+	}
+
+	subCategory, err := subCategoryService.subCategoryRepo.FindOne(category.ID, subCategoryID)
 	if err != nil {
 		return nil, err
 	}
@@ -36,8 +43,14 @@ func (subCategoryService subcategoryServiceImp) GetOneSubCategory(subCategoryID 
 	return &subCategoryResponse, nil
 }
 
-func (subCategoryService subcategoryServiceImp) GetAllSubCategory() ([]dto.GetAllSubCategoryResponse, error) {
-	subCategories, err := subCategoryService.subCategoryRepo.FindAll()
+func (subCategoryService subcategoryServiceImp) GetAllSubCategory(categoryID int) ([]dto.GetAllSubCategoryResponse, error) {
+	// get category
+	category, err := subCategoryService.categoryRepo.FindOneByID(categoryID)
+	if err != nil {
+		return nil, errors.New("category not found")
+	}
+
+	subCategories, err := subCategoryService.subCategoryRepo.FindAll(category.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +59,7 @@ func (subCategoryService subcategoryServiceImp) GetAllSubCategory() ([]dto.GetAl
 	return subCategoryResponses, nil
 }
 
-func (subCategoryService subcategoryServiceImp) CreateSubCategory(ctx *fiber.Ctx, config config.Config, categoryID int, createSubCategory dto.CreateSubCategoryRequest) error {
+func (subCategoryService subcategoryServiceImp) CreateSubCategory(ctx *fiber.Ctx, config *config.Config, categoryID int, createSubCategory dto.CreateSubCategoryRequest) error {
 	// get category eger-de sol category bar bolsa onda subCategory Create edilmeli
 
 	category, errGetCategory := subCategoryService.categoryRepo.FindOneByID(categoryID)
@@ -78,13 +91,13 @@ func (subCategoryService subcategoryServiceImp) CreateSubCategory(ctx *fiber.Ctx
 	return nil
 }
 
-func (subCategoryService subcategoryServiceImp) UpdateSubCategory(ctx *fiber.Ctx, config config.Config, categoryID int, subCategoryID int, updateSubCategory dto.UpdateSubCategoryRequest) error {
-	_, errGetCategory := subCategoryService.categoryRepo.FindOneByID(categoryID)
+func (subCategoryService subcategoryServiceImp) UpdateSubCategory(ctx *fiber.Ctx, config *config.Config, categoryID int, subCategoryID int, updateSubCategory dto.UpdateSubCategoryRequest) error {
+	category, errGetCategory := subCategoryService.categoryRepo.FindOneByID(categoryID)
 	if errGetCategory != nil {
 		return errors.New("category Not found")
 	}
 
-	subCategory, errSubCategory := subCategoryService.subCategoryRepo.FindOne(subCategoryID)
+	subCategory, errSubCategory := subCategoryService.subCategoryRepo.FindOne(category.ID, subCategoryID)
 	if errSubCategory != nil {
 		return errors.New("subCategory not found")
 	}
@@ -123,7 +136,7 @@ func (subCategoryService subcategoryServiceImp) DeleteSubCategory(categoryID, su
 		return errors.New("category Not found")
 	}
 
-	subCategory, errSubCategory := subCategoryService.subCategoryRepo.FindOne(subCategoryID)
+	subCategory, errSubCategory := subCategoryService.subCategoryRepo.FindOne(category.ID, subCategoryID)
 	if errSubCategory != nil {
 		return errors.New("subCategory not found")
 	}

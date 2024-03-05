@@ -7,7 +7,7 @@ type GetOneSubCategoryResponse struct {
 	SubCategoryNameTk   string                        `json:"sub_category_tk"`
 	SubCategoryNameRu   string                        `json:"sub_category_ru"`
 	SubCategoryNameEn   string                        `json:"sub_category_en"`
-	SubCategoryImageURL string                        `json:"sub_category_image_url"`
+	SubCategoryImageURL *string                       `json:"sub_category_image_url"`
 	SubCategorySlug     string                        `json:"sub_category_slug"`
 	SubCategoryStatus   string                        `json:"sub_category_status"`
 	Category            categoryResponse              `json:"category" gorm:"foreignKey:CategoryID;references:ID"` // BelongsTo is correct
@@ -57,12 +57,13 @@ func NewGetOneSubCategoryResponse(subCategory *models.SubCategory) GetOneSubCate
 
 	}
 	return GetOneSubCategoryResponse{
-		ID:                subCategory.ID,
-		SubCategoryNameTk: subCategory.SubCategoryNameTk,
-		SubCategoryNameRu: subCategory.SubCategoryNameRu,
-		SubCategoryNameEn: subCategory.SubCategoryNameEn,
-		SubCategorySlug:   subCategory.SubCategorySlug,
-		SubCategoryStatus: subCategory.SubCategoryStatus,
+		ID:                  subCategory.ID,
+		SubCategoryNameTk:   subCategory.SubCategoryNameTk,
+		SubCategoryNameRu:   subCategory.SubCategoryNameRu,
+		SubCategoryNameEn:   subCategory.SubCategoryNameEn,
+		SubCategorySlug:     subCategory.SubCategorySlug,
+		SubCategoryImageURL: subCategory.SubCategoryImageURL,
+		SubCategoryStatus:   subCategory.SubCategoryStatus,
 		Category: categoryResponse{
 			ID:               subCategory.Category.ID,
 			CategoryNameTk:   subCategory.Category.CategoryNameTk,
@@ -70,6 +71,7 @@ func NewGetOneSubCategoryResponse(subCategory *models.SubCategory) GetOneSubCate
 			CategoryNameEn:   subCategory.Category.CategoryNameEn,
 			CategorySlug:     subCategory.Category.CategorySlug,
 			CategoryImageURL: subCategory.Category.CategoryImageURL,
+			CategoryStatus:   subCategory.Category.CategoryStatus,
 			CreatedAt:        subCategory.Category.CreatedAt.Format("01-02-2006"),
 		},
 		Products:  productsResponse,
@@ -83,7 +85,7 @@ type GetAllSubCategoryResponse struct {
 	SubCategoryNameTk   string           `json:"sub_category_tk"`
 	SubCategoryNameRu   string           `json:"sub_category_ru"`
 	SubCategoryNameEn   string           `json:"sub_category_en"`
-	SubCategoryImageURL string           `json:"sub_category_image_url"`
+	SubCategoryImageURL *string          `json:"sub_category_image_url"`
 	SubCategorySlug     string           `json:"sub_category_slug"`
 	SubCategoryStatus   string           `json:"sub_category_status"`
 	Category            categoryResponse `json:"category"`
@@ -94,18 +96,20 @@ type GetAllSubCategoryResponse struct {
 
 func NewGetAllSubCategoryResponse(subCategories []models.SubCategory) []GetAllSubCategoryResponse {
 	var subCategoryResponses []GetAllSubCategoryResponse
+	productCount := 0
 	for _, subCategory := range subCategories {
-		productCount := 0
-		for i := 0; i <= len(subCategory.Products); i++ {
+		for i := 0; i < len(subCategory.Products); i++ {
 			productCount = productCount + 1
 		}
+
 		subCategoryResponse := GetAllSubCategoryResponse{
-			ID:                subCategory.ID,
-			SubCategoryNameTk: subCategory.SubCategoryNameTk,
-			SubCategoryNameRu: subCategory.SubCategoryNameRu,
-			SubCategoryNameEn: subCategory.SubCategoryNameEn,
-			SubCategorySlug:   subCategory.SubCategorySlug,
-			SubCategoryStatus: subCategory.SubCategoryStatus,
+			ID:                  subCategory.ID,
+			SubCategoryNameTk:   subCategory.SubCategoryNameTk,
+			SubCategoryNameRu:   subCategory.SubCategoryNameRu,
+			SubCategoryNameEn:   subCategory.SubCategoryNameEn,
+			SubCategorySlug:     subCategory.SubCategorySlug,
+			SubCategoryImageURL: subCategory.SubCategoryImageURL,
+			SubCategoryStatus:   subCategory.SubCategoryStatus,
 			Category: categoryResponse{
 				ID:               subCategory.Category.ID,
 				CategoryNameTk:   subCategory.Category.CategoryNameTk,
@@ -113,6 +117,7 @@ func NewGetAllSubCategoryResponse(subCategories []models.SubCategory) []GetAllSu
 				CategoryNameEn:   subCategory.Category.CategoryNameEn,
 				CategorySlug:     subCategory.Category.CategorySlug,
 				CategoryImageURL: subCategory.Category.CategoryImageURL,
+				CategoryStatus:   subCategory.Category.CategoryStatus,
 				CreatedAt:        subCategory.Category.CreatedAt.Format("01-02-2006"),
 			},
 			ProductCount: productCount,
