@@ -10,6 +10,7 @@ type Brand struct {
 	BrandImageURL string    `json:"brand_image_url"`
 	BrandSlug     string    `json:"brand_slug"`
 	BrandStatus   string    `json:"brand_status"`
+	Products      []Product `json:"products"`
 	CreatedAt     time.Time `json:"created_at"`
 	UpdatedAt     time.Time `json:"updated_at"`
 }
