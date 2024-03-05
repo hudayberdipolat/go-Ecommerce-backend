@@ -9,7 +9,7 @@ type GetOneBrandResponse struct {
 	BrandNameTk   string                 `json:"brand_name_tk"`
 	BrandNameRu   string                 `json:"brand_name_ru"`
 	BrandNameEn   string                 `json:"brand_name_en"`
-	BrandImageURL string                 `json:"brand_image_url"`
+	BrandImageURL *string                `json:"brand_image_url"`
 	BrandSlug     string                 `json:"brand_slug"`
 	BrandStatus   string                 `json:"brand_status"`
 	Products      []brandProductResponse `json:"products"`
@@ -29,7 +29,7 @@ type brandProductResponse struct {
 	CreatedAt       string  `json:"created_at"`
 }
 
-func NewGetOneBrandResponse(brand models.Brand) GetOneBrandResponse {
+func NewGetOneBrandResponse(brand *models.Brand) GetOneBrandResponse {
 	var productResponses []brandProductResponse
 
 	for _, product := range brand.Products {
@@ -62,16 +62,16 @@ func NewGetOneBrandResponse(brand models.Brand) GetOneBrandResponse {
 }
 
 type GetAllBrandResponse struct {
-	ID            int    `json:"id"`
-	BrandNameTk   string `json:"brand_name_tk"`
-	BrandNameRu   string `json:"brand_name_ru"`
-	BrandNameEn   string `json:"brand_name_en"`
-	BrandImageURL string `json:"brand_image_url"`
-	BrandSlug     string `json:"brand_slug"`
-	BrandStatus   string `json:"brand_status"`
-	ProductCount  int    `json:"product_count"`
-	CreatedAt     string `json:"created_at"`
-	UpdatedAt     string `json:"updated_at"`
+	ID            int     `json:"id"`
+	BrandNameTk   string  `json:"brand_name_tk"`
+	BrandNameRu   string  `json:"brand_name_ru"`
+	BrandNameEn   string  `json:"brand_name_en"`
+	BrandImageURL *string `json:"brand_image_url"`
+	BrandSlug     string  `json:"brand_slug"`
+	BrandStatus   string  `json:"brand_status"`
+	ProductCount  int     `json:"product_count"`
+	CreatedAt     string  `json:"created_at"`
+	UpdatedAt     string  `json:"updated_at"`
 }
 
 func NewGetAllBrandResponse(brands []models.Brand) []GetAllBrandResponse {

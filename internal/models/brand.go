@@ -7,7 +7,7 @@ type Brand struct {
 	BrandNameTk   string    `json:"brand_name_tk"`
 	BrandNameRu   string    `json:"brand_name_ru"`
 	BrandNameEn   string    `json:"brand_name_en"`
-	BrandImageURL string    `json:"brand_image_url"`
+	BrandImageURL *string   `json:"brand_image_url"`
 	BrandSlug     string    `json:"brand_slug"`
 	BrandStatus   string    `json:"brand_status"`
 	Products      []Product `json:"products"`
