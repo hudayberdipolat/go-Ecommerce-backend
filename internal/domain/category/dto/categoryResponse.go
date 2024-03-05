@@ -19,18 +19,18 @@ type GetOneCategoryResponse struct {
 }
 
 type subCategoryResponse struct {
-	ID                  int    `json:"id"`
-	SubCategoryNameTk   string `json:"sub_category_tk"`
-	SubCategoryNameRu   string `json:"sub_category_ru"`
-	SubCategoryNameEn   string `json:"sub_category_en"`
-	SubCategorySlug     string `json:"sub_category_slug"`
-	SubCategoryImageURL string `json:"sub_categorty_image_url"`
-	SubCategoryStatus   string `json:"sub_category_status"`
-	CreatedAt           string `json:"created_at"`
+	ID                  int     `json:"id"`
+	SubCategoryNameTk   string  `json:"sub_category_tk"`
+	SubCategoryNameRu   string  `json:"sub_category_ru"`
+	SubCategoryNameEn   string  `json:"sub_category_en"`
+	SubCategorySlug     string  `json:"sub_category_slug"`
+	SubCategoryImageURL *string `json:"sub_categorty_image_url"`
+	SubCategoryStatus   string  `json:"sub_category_status"`
+	CreatedAt           string  `json:"created_at"`
 }
 
 type categoryProductResponse struct {
-	ID              int
+	ID              int     `json:"id"`
 	ProductNameTk   string  `json:"product_name_tk"`
 	ProductNameRu   string  `json:"product_name_ru"`
 	ProductNameEn   string  `json:"product_name_en"`

@@ -13,6 +13,7 @@ type Product struct {
 	ProductShortDescEn  string      `json:"product_short_desc_en"`
 	ProductMainImageURL string      `json:"product_main_image_url"`
 	ProductModel        string      `json:"product_model"`
+	ProductStatus       string      `json:"product_status"`
 	OriginalPrice       float32     `json:"original_price"`
 	DisCountPrice       float32     `json:"discount_price"`
 	DisCountTime        time.Time   `json:"discount_time"`

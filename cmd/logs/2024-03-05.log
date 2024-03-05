@@ -1,0 +1,3 @@
+{"level":"info","time":"2024-03-05T09:22:16+05:00","caller":"dependencies.go:38","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-05T09:22:16+05:00","caller":"dependencies.go:46","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-05T09:22:16+05:00","caller":"main.go:19","message":"Project run successfully"}
