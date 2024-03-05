@@ -1,9 +1,9 @@
 CREATE TABLE IF NOT EXISTS products(
     id SERIAL PRIMARY KEY,
-    product_name_tk VARCHAR(500) UNIQUE NOT NULL,
-    product_name_ru VARCHAR(500) UNIQUE NOT NULL,
-    product_name_en VARCHAR(500) UNIQUE NOT NULL,
-    product_slug VARCHAR(500),
+    product_name_tk VARCHAR(500) NOT NULL,
+    product_name_ru VARCHAR(500) NOT NULL,
+    product_name_en VARCHAR(500) NOT NULL,
+    product_slug VARCHAR(500) UNIQUE,
     product_short_desc_tk TEXT NOT NULL,
     product_short_desc_ru TEXT NOT NULL,
     product_short_desc_en TEXT NOT NULL,

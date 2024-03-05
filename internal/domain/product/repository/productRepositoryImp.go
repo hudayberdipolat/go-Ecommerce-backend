@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"errors"
+
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
 	"gorm.io/gorm"
 )
@@ -16,21 +18,50 @@ func NewProductRepository(db *gorm.DB) ProductRepository {
 }
 
 func (productRepo productRepositoryImp) GetOneByID(productID int) (*models.Product, error) {
-	panic("product Repo imp")
+	var product models.Product
+	if err := productRepo.db.First(&product, productID).Error; err != nil {
+		return nil, err
+	}
+	return &product, nil
 }
 
 func (productRepo productRepositoryImp) GetAll() ([]models.Product, error) {
-	panic("product Repo imp")
+	var products []models.Product
+
+	if err := productRepo.db.Find(&products).Error; err != nil {
+		return nil, err
+	}
+	return products, nil
 }
 
 func (productRepo productRepositoryImp) Store(product models.Product) error {
-	panic("product Repo imp")
+
+	if err := productRepo.db.Create(&product).Error; err != nil {
+		if errors.Is(err, gorm.ErrDuplicatedKey) {
+			return errors.New("dublicate error: --> product slug")
+		}
+		return err
+	}
+	return nil
 }
 
 func (productRepo productRepositoryImp) Update(productID int, product models.Product) error {
-	panic("product Repo imp")
+	var updateProduct models.Product
+
+	if err := productRepo.db.Model(&updateProduct).Where("id=?", productID).Updates(&product).Error; err != nil {
+		if errors.Is(err, gorm.ErrDuplicatedKey) {
+			return errors.New("dublicate error: --> product slug")
+		}
+		return err
+	}
+	return nil
 }
 
 func (productRepo productRepositoryImp) Destroy(productID int) error {
-	panic("product Repo imp")
+	var deleteProduct models.Product
+
+	if err := productRepo.db.Where("id=?", productID).Unscoped().Delete(&deleteProduct).Error; err != nil {
+		return err
+	}
+	return nil
 }
