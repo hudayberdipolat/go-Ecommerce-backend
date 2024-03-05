@@ -141,10 +141,12 @@ func (productService productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *co
 		}
 		updateProduct.ProductMainImageURL = productImageURL
 	}
+	randString := utils.RandStringRunes(6)
 
 	updateProduct.ProductNameTk = updateRequest.ProductNameTk
 	updateProduct.ProductNameRu = updateRequest.ProductNameRu
 	updateProduct.ProductNameEn = updateRequest.ProductNameEn
+	updateProduct.ProductSlug = slug.Make(updateRequest.ProductNameEn) + randString
 	updateProduct.ProductShortDescTk = updateRequest.ProductShortDescTk
 	updateProduct.ProductShortDescTk = updateRequest.ProductShortDescRu
 	updateProduct.ProductShortDescTk = updateRequest.ProductShortDescEn

@@ -28,6 +28,6 @@ func ProductRequirmentCreator(db *gorm.DB, config *config.Config) {
 	subCategoryRepo = subCategoryRepository.NewSubCategoryRespository(db)
 	brandRepo = brandRepository.NewBrandRepository(db)
 	productService = service.NewProductService(productRepo, categoryRepo, subCategoryRepo, brandRepo)
-	ProductHandler = handler.NewProductHandler(productService)
+	ProductHandler = handler.NewProductHandler(productService, config)
 
 }
