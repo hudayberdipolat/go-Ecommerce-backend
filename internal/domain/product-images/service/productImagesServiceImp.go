@@ -56,7 +56,7 @@ func (pImageService productImageServiceImp) GetOneProductImage(productID, produc
 
 }
 
-func (pImageService productImageServiceImp) CreateProductImage(ctx *fiber.Ctx, config config.Config, productID int, request dto.CreateProductRequest) error {
+func (pImageService productImageServiceImp) CreateProductImage(ctx *fiber.Ctx, config *config.Config, productID int, request dto.CreateProductImageRequest) error {
 	product, err := pImageService.productRepo.GetOneByID(productID)
 	if err != nil {
 		return errors.New("product not found")

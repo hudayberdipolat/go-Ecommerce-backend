@@ -1,5 +1,5 @@
 package dto
 
-type CreateProductRequest struct {
+type CreateProductImageRequest struct {
 	ImageURL string `form:"image_url"`
 }
