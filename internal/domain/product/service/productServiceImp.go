@@ -85,6 +85,9 @@ func (productService productServiceImp) CreateProduct(ctx *fiber.Ctx, config *co
 		ProductShortDescTk:  createRequest.ProductShortDescTk,
 		ProductShortDescRu:  createRequest.ProductShortDescRu,
 		ProductShortDescEn:  createRequest.ProductShortDescEn,
+		ProductLongDescTk:   createRequest.ProductLongDescTk,
+		ProductLongDescRu:   createRequest.ProductLongDescRu,
+		ProductLongDescEn:   createRequest.ProductLongDescEn,
 		ProductMainImageURL: productImageURL,
 		ProductModel:        createRequest.ProductModel,
 		ProductStatus:       "DRAFT",
@@ -150,6 +153,9 @@ func (productService productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *co
 	updateProduct.ProductShortDescTk = updateRequest.ProductShortDescTk
 	updateProduct.ProductShortDescTk = updateRequest.ProductShortDescRu
 	updateProduct.ProductShortDescTk = updateRequest.ProductShortDescEn
+	updateProduct.ProductLongDescTk = updateRequest.ProductLongDescTk
+	updateProduct.ProductLongDescTk = updateRequest.ProductLongDescRu
+	updateProduct.ProductLongDescTk = updateRequest.ProductLongDescEn
 	updateProduct.ProductModel = updateRequest.ProductModel
 	updateProduct.ProductStatus = updateRequest.ProductStatus
 	updateProduct.OriginalPrice = updateRequest.OriginalPrice

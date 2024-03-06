@@ -11,9 +11,13 @@ type Product struct {
 	ProductShortDescTk  string      `json:"product_short_desc_tk"`
 	ProductShortDescRu  string      `json:"product_short_desc_ru"`
 	ProductShortDescEn  string      `json:"product_short_desc_en"`
+	ProductLongDescTk   string      `json:"product_long_desc_tk"`
+	ProductLongDescRu   string      `json:"product_long_desc_ru"`
+	ProductLongDescEn   string      `json:"product_long_desc_en"`
 	ProductMainImageURL *string     `json:"product_main_image_url"`
 	ProductModel        string      `json:"product_model"`
 	ProductStatus       string      `json:"product_status"`
+	ProductFeature      string      `json:"product_feature"`
 	OriginalPrice       float32     `json:"original_price"`
 	DisCountPrice       float32     `json:"discount_price"`
 	DisCountTime        time.Time   `json:"discount_time"`

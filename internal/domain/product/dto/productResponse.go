@@ -13,8 +13,12 @@ type GetOneProductResponse struct {
 	ProductShortDescRU  string             `json:"product_short_desc_ru"`
 	ProductShortDescEn  string             `json:"product_short_desc_en"`
 	ProductMainImageURL *string            `json:"product_main_image_url"`
+	ProductLongDescTk   string             `json:"product_long_desc_tk"`
+	ProductLongDescRu   string             `json:"product_long_desc_ru"`
+	ProductLongDescEn   string             `json:"product_long_desc_en"`
 	ProductModel        string             `json:"product_model"`
 	ProductStatus       string             `json:"product_status"`
+	ProductFeature      string             `json:"product_feature"`
 	OriginalPrice       float32            `json:"original_price"`
 	DisCountPrice       float32            `json:"discount_price"`
 	DisCountTime        string             `json:"discount_time"`
@@ -70,9 +74,13 @@ func NewGetOneProductResponse(product *models.Product) GetOneProductResponse {
 		ProductShortDescTk:  product.ProductShortDescTk,
 		ProductShortDescRU:  product.ProductShortDescRu,
 		ProductShortDescEn:  product.ProductShortDescEn,
+		ProductLongDescTk:   product.ProductLongDescTk,
+		ProductLongDescRu:   product.ProductLongDescRu,
+		ProductLongDescEn:   product.ProductLongDescEn,
 		ProductMainImageURL: product.ProductMainImageURL,
 		ProductModel:        product.ProductModel,
 		ProductStatus:       product.ProductStatus,
+		ProductFeature:      product.ProductFeature,
 		OriginalPrice:       product.OriginalPrice,
 		DisCountPrice:       product.DisCountPrice,
 		DisCountTime:        product.DisCountTime.Format("01-02-2006"),
