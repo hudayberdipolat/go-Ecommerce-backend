@@ -7,6 +7,7 @@ import (
 	pImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product-images/constructor"
 	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	subCategoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/subCategory/constructor"
+	userConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/user/constructor"
 )
 
 func Build(dependencies *app.Dependencies) {
@@ -15,4 +16,5 @@ func Build(dependencies *app.Dependencies) {
 	brandConstructor.BrandRequirmentCreator(dependencies.DB, dependencies.Config)
 	productConstructor.ProductRequirmentCreator(dependencies.DB, dependencies.Config)
 	pImageConstructor.ProductImageRequirmentCreator(dependencies.DB, dependencies.Config)
+	userConstructor.UserRequirmentCreator(dependencies.DB)
 }
