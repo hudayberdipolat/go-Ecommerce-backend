@@ -15,18 +15,34 @@ func NewProductImageRepository(db *gorm.DB) ProductImageRepository {
 	}
 }
 
-func (pImageRepo productImageRepoImp) FindAll() ([]models.ProductImage, error) {
-	panic("productImage repo imp")
+func (pImageRepo productImageRepoImp) FindAll(productID int) ([]models.ProductImage, error) {
+	var productImages []models.ProductImage
+
+	if err := pImageRepo.db.Where("product_id=?", productID).Find(&productImages).Error; err != nil {
+		return nil, err
+	}
+	return productImages, nil
 }
 
 func (pImageRepo productImageRepoImp) FindOne(productID, productImageID int) (*models.ProductImage, error) {
-	panic("productImage repo imp")
+	var productImage models.ProductImage
+	if err := pImageRepo.db.Where("id=?", productImageID).Where("product_id=?", productID).First(&productImage).Error; err != nil {
+		return nil, err
+	}
+	return &productImage, nil
 }
 
 func (pImageRepo productImageRepoImp) Store(productImage models.ProductImage) error {
-	panic("productImage repo imp")
+	if err := pImageRepo.db.Create(&productImage).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 func (pImageRepo productImageRepoImp) Destroy(productID, productImageID int) error {
-	panic("productImage repo imp")
+	var productImage models.ProductImage
+	if err := pImageRepo.db.Where("id=?", productImageID).Where("product_id=?", productID).Unscoped().Delete(&productImage).Error; err != nil {
+		return err
+	}
+	return nil
 }

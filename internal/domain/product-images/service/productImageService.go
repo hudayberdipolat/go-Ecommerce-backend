@@ -7,8 +7,8 @@ import (
 )
 
 type ProductImageService interface {
-	GetAllProductImages() ([]dto.ProductImageResponse, error)
-	GetOneProductImage(productID, productImageID int) (dto.ProductImageResponse, error)
+	GetAllProductImages(productID int) ([]dto.ProductImageResponse, error)
+	GetOneProductImage(productID, productImageID int) (*dto.ProductImageResponse, error)
 	CreateProductImage(ctx *fiber.Ctx, config config.Config, productID int, request dto.CreateProductRequest) error
 	DeleteProductImage(productID, productImageID int) error
 }

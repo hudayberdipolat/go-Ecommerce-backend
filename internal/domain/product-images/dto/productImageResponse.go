@@ -18,3 +18,10 @@ func NewGetAllProductImages(productImages []models.ProductImage) []ProductImageR
 	}
 	return productImageResponses
 }
+
+func NewGetOneProductImage(productImage *models.ProductImage) ProductImageResponse {
+	return ProductImageResponse{
+		ID:       productImage.ID,
+		ImageURL: productImage.ImageURL,
+	}
+}
