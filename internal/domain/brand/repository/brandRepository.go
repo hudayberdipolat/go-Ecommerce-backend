@@ -8,4 +8,8 @@ type BrandRepository interface {
 	Store(brand models.Brand) error
 	Update(brandID int, brand models.Brand) error
 	Destroy(brandID int) error
+
+	//FOR FRONT
+
+	GetOneBySlug(brandSlug string) (*models.Brand, error)
 }

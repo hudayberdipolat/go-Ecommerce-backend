@@ -8,4 +8,6 @@ type BrandHandler interface {
 	Create(ctx *fiber.Ctx) error
 	Update(ctx *fiber.Ctx) error
 	Delete(ctx *fiber.Ctx) error
+	//FOR FRONT
+	GetOneBrand(ctx *fiber.Ctx) error
 }

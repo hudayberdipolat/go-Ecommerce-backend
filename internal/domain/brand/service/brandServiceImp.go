@@ -105,3 +105,15 @@ func (brandService brandServiceImp) DeleteBrand(brandID int) error {
 	}
 	return nil
 }
+
+//	FOR FRONT
+
+func (brandService brandServiceImp) GetOneBrandBySlug(brandSlug string) (*dto.GetOneBrandResponse, error) {
+	brand, err := brandService.brandRepo.GetOneBySlug(brandSlug)
+	if err != nil {
+		return nil, err
+	}
+
+	brandResponse := dto.NewGetOneBrandResponse(brand)
+	return &brandResponse, nil
+}

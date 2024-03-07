@@ -8,4 +8,5 @@ type ProductHandler interface {
 	Create(ctx *fiber.Ctx) error
 	Update(ctx *fiber.Ctx) error
 	Delete(ctx *fiber.Ctx) error
+	GetOneProduct(ctx *fiber.Ctx) error
 }

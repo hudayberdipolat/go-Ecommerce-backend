@@ -52,30 +52,23 @@ func (productService productServiceImp) GetAllProduct() ([]dto.GetAllProductResp
 }
 
 func (productService productServiceImp) CreateProduct(ctx *fiber.Ctx, config *config.Config, createRequest dto.CreateProductRequest) error {
-	// get category
-
 	category, err := productService.categoryRepo.FindOneByID(createRequest.CategoryID)
 	if err != nil {
 		return err
 	}
-	// get subCategory
 	subCategory, err := productService.subCategoryRepo.FindOne(category.ID, createRequest.SubCategoryID)
 	if err != nil {
 		return err
 	}
-
-	// get Brend
 	brend, err := productService.brandRepo.GetOneByID(createRequest.BrandID)
 	if err != nil {
 		return err
 	}
-	// file upload
 
 	productImageURL, err := utils.UploadFile(ctx, "product_image_url", config.FolderConfig.PublicPath, "product-images")
 	if err != nil {
 		return err
 	}
-	// create product
 	randString := utils.RandStringRunes(6)
 	createProduct := models.Product{
 		ProductNameTk:       createRequest.ProductNameTk,
@@ -114,7 +107,6 @@ func (productService productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *co
 	if err != nil {
 		return err
 	}
-
 	category, err := productService.categoryRepo.FindOneByID(updateRequest.CategoryID)
 	if err != nil {
 		return err
@@ -124,7 +116,6 @@ func (productService productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *co
 	if err != nil {
 		return err
 	}
-
 	// get Brend
 	brend, err := productService.brandRepo.GetOneByID(updateRequest.BrandID)
 	if err != nil {
@@ -183,4 +174,14 @@ func (productService productServiceImp) DeleteProduct(productID int) error {
 		return err
 	}
 	return nil
+}
+
+func (productService productServiceImp) GetOneProductBySlug(productSlug string) (*dto.GetOneProductResponse, error) {
+	product, err := productService.productRepo.GetOneBySlug(productSlug)
+	if err != nil {
+		return nil, err
+	}
+
+	productResponse := dto.NewGetOneProductResponse(product)
+	return &productResponse, nil
 }

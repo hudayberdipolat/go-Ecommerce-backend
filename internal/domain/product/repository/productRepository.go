@@ -8,4 +8,8 @@ type ProductRepository interface {
 	Store(product models.Product) error
 	Update(productID int, product models.Product) error
 	Destroy(productID int) error
+
+	// FOR FRONT
+
+	GetOneBySlug(productSlug string) (*models.Product, error)
 }

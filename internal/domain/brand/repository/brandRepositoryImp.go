@@ -62,3 +62,13 @@ func (brandRepo brandRepositoryImp) Destroy(brandID int) error {
 	}
 	return nil
 }
+
+// FOR FRONT
+
+func (brandRepo brandRepositoryImp) GetOneBySlug(brandSlug string) (*models.Brand, error) {
+	var brand models.Brand
+	if err := brandRepo.db.Where("brand_slug =?", brandSlug).First(&brand).Error; err != nil {
+		return nil, err
+	}
+	return &brand, nil
+}

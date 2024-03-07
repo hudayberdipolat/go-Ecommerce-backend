@@ -27,6 +27,8 @@ type GetOneProductResponse struct {
 	Category            productCategory    `json:"category"`
 	SubCategory         productSubCategory `json:"sub_category"`
 	Brand               productBrand       `json:"brand"`
+	ProductComment      []productComment   `json:"product_comment"`
+	ProductImages       []productImage     `json:"product_images"`
 	CreatedAt           string             `json:"created_at"`
 	UpdatedAt           string             `json:"updated_at"`
 }
@@ -65,7 +67,38 @@ type productBrand struct {
 	UpdatedAt     string  `json:"updated_at"`
 }
 
+type productComment struct {
+	ID       int    `json:"id"`
+	Comment  string `json:"comment"`
+	UserName string `json:"username"`
+}
+
+type productImage struct {
+	ID       int    `json:"id"`
+	ImageUrl string `json:"image_url"`
+}
+
 func NewGetOneProductResponse(product *models.Product) GetOneProductResponse {
+
+	var productImages []productImage
+	var productComments []productComment
+	for _, image := range product.ProductImages {
+		productImage := productImage{
+			ID:       image.ID,
+			ImageUrl: *image.ImageURL,
+		}
+		productImages = append(productImages, productImage)
+	}
+
+	for _, comment := range product.ProductComments {
+		productComment := productComment{
+			ID:       comment.ID,
+			Comment:  comment.ProductComment,
+			UserName: comment.User.Username,
+		}
+		productComments = append(productComments, productComment)
+	}
+
 	return GetOneProductResponse{
 		ProductNameTk:       product.ProductNameTk,
 		ProductNameRu:       product.ProductNameRu,
@@ -86,6 +119,8 @@ func NewGetOneProductResponse(product *models.Product) GetOneProductResponse {
 		DisCountTime:        product.DisCountTime.Format("01-02-2006"),
 		TotalCount:          product.TotalCount,
 		RestCount:           product.RestCount,
+		ProductImages:       productImages,
+		ProductComment:      productComments,
 		Category: productCategory{
 			ID:               product.Category.ID,
 			CategoryNameTk:   product.Category.CategoryNameTk,
@@ -120,6 +155,7 @@ func NewGetOneProductResponse(product *models.Product) GetOneProductResponse {
 		CreatedAt: product.CreatedAt.Format("01-02-2006"),
 		UpdatedAt: product.UpdatedAt.Format("01-02-2006"),
 	}
+
 }
 
 type GetAllProductResponse struct {

@@ -19,7 +19,9 @@ func NewProductRepository(db *gorm.DB) ProductRepository {
 
 func (productRepo productRepositoryImp) GetOneByID(productID int) (*models.Product, error) {
 	var product models.Product
-	if err := productRepo.db.First(&product, productID).Error; err != nil {
+	if err := productRepo.db.Preload("Category").Preload("SubCategory").
+		Preload("Brand").Preload("ProductImages").Preload("ProductComments").
+		First(&product, productID).Error; err != nil {
 		return nil, err
 	}
 	return &product, nil
@@ -63,4 +65,15 @@ func (productRepo productRepositoryImp) Destroy(productID int) error {
 		return err
 	}
 	return nil
+}
+
+// FOR FRONT
+
+func (productRepo productRepositoryImp) GetOneBySlug(productSlug string) (*models.Product, error) {
+	var product models.Product
+	if err := productRepo.db.Where("product_slug=?", productSlug).Preload("Category").
+		Preload("SubCategory").Preload("Brand").Preload("ProductImages").Preload("ProductComments").First(&product).Error; err != nil {
+		return nil, err
+	}
+	return &product, nil
 }

@@ -112,3 +112,16 @@ func (brandHandler brandHandlerImp) Delete(ctx *fiber.Ctx) error {
 	successResponse := response.Success(http.StatusOK, "brand deleted successfully", nil)
 	return ctx.Status(http.StatusOK).JSON(successResponse)
 }
+
+// FOR FRONT
+
+func (brandHandler brandHandlerImp) GetOneBrand(ctx *fiber.Ctx) error {
+	brandSlug := ctx.Params("brandSlug")
+	brand, err := brandHandler.brandService.GetOneBrandBySlug(brandSlug)
+	if err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "brand not found", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+	successResponse := response.Success(http.StatusOK, "get one brand", brand)
+	return ctx.Status(http.StatusOK).JSON(successResponse)
+}

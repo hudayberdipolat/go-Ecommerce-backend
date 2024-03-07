@@ -12,4 +12,8 @@ type ProductService interface {
 	CreateProduct(ctx *fiber.Ctx, config *config.Config, createRequest dto.CreateProductRequest) error
 	UpdateProduct(ctx *fiber.Ctx, config *config.Config, productID int, updateRequest dto.UpdateProductRequest) error
 	DeleteProduct(productID int) error
+
+	// FRONT ROUTES
+
+	GetOneProductBySlug(productSlug string) (*dto.GetOneProductResponse, error)
 }

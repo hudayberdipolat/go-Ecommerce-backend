@@ -12,4 +12,8 @@ type BrandService interface {
 	CreateBrand(ctx *fiber.Ctx, config *config.Config, createRequest dto.CreateBrandRequest) error
 	UpdateBrand(ctx *fiber.Ctx, config *config.Config, brandID int, updateRequest dto.UpdateBrandRequest) error
 	DeleteBrand(brandID int) error
+
+	// FOR FRONT
+
+	GetOneBrandBySlug(brandSlug string) (*dto.GetOneBrandResponse, error)
 }

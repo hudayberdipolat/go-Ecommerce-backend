@@ -81,7 +81,7 @@ func (categoryService categoryServiceImp) UpdateCategory(ctx *fiber.Ctx, config 
 	file, _ := ctx.FormFile("category_image_url")
 	if file != nil {
 		// old image delete
-		if errDelete := utils.DeleteFile(*updateCategory.CategoryImageURL); err != nil {
+		if errDelete := utils.DeleteFile(*updateCategory.CategoryImageURL); errDelete != nil {
 			return errDelete
 		}
 		// new image upload
@@ -122,5 +122,10 @@ func (categoryService categoryServiceImp) DeleteCategory(categoryID int) error {
 // front for functions
 
 func (categoryService categoryServiceImp) GetOneCategoryWithSlug(categorySlug string) (*dto.GetOneCategoryResponse, error) {
-	panic("category service imp")
+	category, err := categoryService.categoryRepo.FindOneBySlug(categorySlug)
+	if err != nil {
+		return nil, err
+	}
+	categoryResponse := dto.NewGetOneCategoryResponse(category)
+	return &categoryResponse, nil
 }
