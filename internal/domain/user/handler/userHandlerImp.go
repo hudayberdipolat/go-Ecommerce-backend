@@ -71,3 +71,70 @@ func (userHandler userHandlerImp) Login(ctx *fiber.Ctx) error {
 	return ctx.Status(http.StatusCreated).JSON(successResponse)
 
 }
+
+// USER PROFILE DATA
+
+func (userHandler userHandlerImp) GetUser(ctx *fiber.Ctx) error {
+	userID := ctx.Locals("user_id").(int)
+	phoneNumber := ctx.Locals("phone_number").(string)
+	user, err := userHandler.userService.GetUser(userID, phoneNumber)
+	if err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "user not found something wrong...", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+	successResponse := response.Success(http.StatusCreated, "user profile data", user)
+	return ctx.Status(http.StatusCreated).JSON(successResponse)
+}
+
+// UPDATE USER PROFILE DATA
+
+func (userHandler userHandlerImp) Update(ctx *fiber.Ctx) error {
+	var updateRequest dto.UpdateUserRequest
+	userID := ctx.Locals("user_id").(int)
+	// body parser
+	if err := ctx.BodyParser(&updateRequest); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "body parser error", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	// validate data
+	if err := validate.ValidateStruct(updateRequest); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "validate error", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	if err := userHandler.userService.UpdateUser(userID, updateRequest); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "can't updated user profile data", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	successResponse := response.Success(http.StatusCreated, "user profile updated successfully", nil)
+	return ctx.Status(http.StatusCreated).JSON(successResponse)
+
+}
+
+// UPDATE USER PASSWORD
+
+func (userHandler userHandlerImp) ChangePassword(ctx *fiber.Ctx) error {
+	var updateRequest dto.ChangeUserPasswordRequest
+	userID := ctx.Locals("user_id").(int)
+	// body parser
+	if err := ctx.BodyParser(&updateRequest); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "body parser error", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	// validate data
+	if err := validate.ValidateStruct(updateRequest); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "validate error", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	if err := userHandler.userService.ChangeUserPassword(userID, updateRequest); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "can't change user password", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	successResponse := response.Success(http.StatusCreated, "user password changed successfully", nil)
+	return ctx.Status(http.StatusCreated).JSON(successResponse)
+}

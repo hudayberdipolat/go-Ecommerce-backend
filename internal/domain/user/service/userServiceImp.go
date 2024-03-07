@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"time"
 
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/user/dto"
@@ -20,7 +21,7 @@ func NewUserService(repo repository.UserRepository) UserService {
 	}
 }
 
-func (userService userServiceImp) RegisterUser(registerRequest dto.RegisterRequest) (*dto.UserResponse, error) {
+func (userService userServiceImp) RegisterUser(registerRequest dto.RegisterRequest) (*dto.UserAuthResponse, error) {
 
 	password, _ := bcrypt.GenerateFromPassword([]byte(registerRequest.Password), bcrypt.MaxCost)
 
@@ -46,12 +47,12 @@ func (userService userServiceImp) RegisterUser(registerRequest dto.RegisterReque
 	if err != nil {
 		return nil, err
 	}
-	userRespone := dto.NewUserResponse(getUser, accessToken)
+	userRespone := dto.NewUserAuthResponse(getUser, accessToken)
 
 	return &userRespone, nil
 }
 
-func (userService userServiceImp) LoginUser(loginRequest dto.LoginRequest) (*dto.UserResponse, error) {
+func (userService userServiceImp) LoginUser(loginRequest dto.LoginRequest) (*dto.UserAuthResponse, error) {
 
 	getUser, err := userService.userRepo.FindUserByPhoneNumber(loginRequest.PhoneNumber)
 	if err != nil {
@@ -66,8 +67,52 @@ func (userService userServiceImp) LoginUser(loginRequest dto.LoginRequest) (*dto
 	if err != nil {
 		return nil, err
 	}
-	userRespone := dto.NewUserResponse(getUser, accessToken)
+	userRespone := dto.NewUserAuthResponse(getUser, accessToken)
 
 	return &userRespone, nil
 
+}
+
+func (userService userServiceImp) GetUser(userID int, phoneNumber string) (*dto.UserResponse, error) {
+	user, err := userService.userRepo.GetUser(userID, phoneNumber)
+	if err != nil {
+		return nil, err
+	}
+
+	userResponse := dto.NewUserResponse(user)
+	return &userResponse, nil
+}
+
+func (userService userServiceImp) UpdateUser(userID int, request dto.UpdateUserRequest) error {
+	updateUser, err := userService.userRepo.FindUserByID(userID)
+	if err != nil {
+		return err
+	}
+
+	// update user
+
+	updateUser.Username = request.Username
+	updateUser.PhoneNumber = request.PhoneNumber
+
+	if err := userService.userRepo.Update(updateUser.ID, *updateUser); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (userService userServiceImp) ChangeUserPassword(userID int, request dto.ChangeUserPasswordRequest) error {
+
+	getUser, err := userService.userRepo.FindUserByID(userID)
+	if err != nil {
+		return err
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(getUser.Password), []byte(request.OldPassword)); err != nil {
+		return errors.New("old password wrong")
+	}
+
+	if err := userService.userRepo.ChangePassword(getUser.ID, request.Password); err != nil {
+		return err
+	}
+	return nil
 }

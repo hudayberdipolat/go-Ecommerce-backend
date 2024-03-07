@@ -25,11 +25,47 @@ func (userRepo userRepositoryImp) FindUserByPhoneNumber(phoneNumber string) (*mo
 	return &user, nil
 }
 
+func (userRepo userRepositoryImp) FindUserByID(userID int) (*models.User, error) {
+	var user models.User
+	if err := userRepo.db.Where("id=?", userID).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
 func (userRepo userRepositoryImp) Store(user models.User) error {
 	if err := userRepo.db.Create(&user).Error; err != nil {
 		if errors.Is(err, gorm.ErrDuplicatedKey) {
 			return errors.New("this phoneNumber allready taken")
 		}
+		return err
+	}
+	return nil
+}
+
+func (userRepo userRepositoryImp) GetUser(userID int, phoneNumber string) (*models.User, error) {
+	var user models.User
+	if err := userRepo.db.Where("id=?", userID).Where("phone_number=?", phoneNumber).First(&user).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (userRepo userRepositoryImp) Update(userID int, updateUser models.User) error {
+	var user models.User
+
+	if err := userRepo.db.Model(&user).Where("id =?", userID).Updates(updateUser).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (userRepo userRepositoryImp) ChangePassword(userID int, password string) error {
+	var user models.User
+
+	if err := userRepo.db.Model(&user).Where("id=?", userID).Updates(&models.User{
+		Password: password,
+	}).Error; err != nil {
 		return err
 	}
 	return nil
