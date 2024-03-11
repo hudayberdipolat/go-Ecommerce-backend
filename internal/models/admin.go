@@ -14,3 +14,7 @@ type Admin struct {
 	CrearedAt     time.Time `json:"created_at"`
 	UpdatedAt     time.Time `json:"updated_at"`
 }
+
+func (*Admin) TableName() string {
+	return "admins"
+}
