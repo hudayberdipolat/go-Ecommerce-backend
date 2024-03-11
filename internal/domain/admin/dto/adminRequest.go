@@ -1,7 +1,6 @@
 package dto
 
 type CreateAdminRequest struct {
-	ID              int    `form:"id" validate:"required"`
 	Username        string `form:"username" validate:"required,min=3"`
 	FullName        string `form:"full_name" validate:"required,min=3"`
 	PhoneNumber     string `form:"phone_number" validate:"required,min=3"`
@@ -11,7 +10,6 @@ type CreateAdminRequest struct {
 }
 
 type UpdateAdminRequest struct {
-	ID            int    `form:"id" validate:"required"`
 	Username      string `form:"username" validate:"required"`
 	FullName      string `form:"full_name" validate:"required"`
 	PhoneNumber   string `form:"phone_number" validate:"required"`
