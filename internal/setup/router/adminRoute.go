@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gofiber/fiber/v2"
+	adminConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/admin/constructor"
 	brandConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brand/constructor"
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
 	pImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product-images/constructor"
@@ -13,6 +14,17 @@ func AdminRoutes(app *fiber.App) {
 
 	adminApi := app.Group("/api/admin")
 
+	// admin Auth routes
+
+	// admin CRUD routes
+
+	adminRoute := adminApi.Group("admins")
+	adminRoute.Get("/", adminConstructor.AdminHandler.GetAll)
+	adminRoute.Get("/:adminID", adminConstructor.AdminHandler.GetOne)
+	adminRoute.Post("/create", adminConstructor.AdminHandler.Create)
+	adminRoute.Put("/:adminID/update", adminConstructor.AdminHandler.UpdateData)
+	adminRoute.Put("/:adminID/update-password", adminConstructor.AdminHandler.UpdatePassword)
+	adminRoute.Delete("/:adminID/delete", adminConstructor.AdminHandler.Delete)
 	// categories routes
 
 	categoryRoute := adminApi.Group("categories")
