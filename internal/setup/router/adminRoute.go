@@ -7,6 +7,7 @@ import (
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
 	pImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product-images/constructor"
 	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
+	sliderConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/slider/constructor"
 	subCategoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/subCategory/constructor"
 )
 
@@ -68,4 +69,11 @@ func AdminRoutes(app *fiber.App) {
 	pImageRoute.Get("/:productImageID", pImageConstructor.ProductImageHandler.GetOne)
 	pImageRoute.Post("/create", pImageConstructor.ProductImageHandler.Create)
 	pImageRoute.Delete("/:productImageID/delete", pImageConstructor.ProductImageHandler.Delete)
+
+	sliderRoute := adminApi.Group("sliders")
+	sliderRoute.Get("", sliderConstructor.SliderHandler.GetAll)
+	sliderRoute.Get("/:sliderID", sliderConstructor.SliderHandler.GetOne)
+	sliderRoute.Get("/create", sliderConstructor.SliderHandler.Create)
+	sliderRoute.Get(":sliderID/update", sliderConstructor.SliderHandler.UpdateStatus)
+	sliderRoute.Get("/:sliderID/delete", sliderConstructor.SliderHandler.Delete)
 }
