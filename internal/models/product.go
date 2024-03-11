@@ -33,4 +33,5 @@ type Product struct {
 	ProductComments     []ProductComment `json:"product_comments"`
 	CreatedAt           time.Time        `json:"created_at"`
 	UpdatedAt           time.Time        `json:"updated_at"`
+	CommentCount        int              `json:"comment_count"`
 }

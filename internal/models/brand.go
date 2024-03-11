@@ -13,6 +13,7 @@ type Brand struct {
 	Products      []Product `json:"products"`
 	CreatedAt     time.Time `json:"created_at"`
 	UpdatedAt     time.Time `json:"updated_at"`
+	ProductCount  int       `json:"product_count" gorm:"-"`
 }
 
 func (*Brand) TableName() string {

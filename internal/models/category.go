@@ -18,6 +18,8 @@ type Category struct {
 	Products         []Product     `json:"products"`
 	CreatedAt        time.Time     `json:"created_at"`
 	UpdatedAt        time.Time     `json:"updated_at"`
+	ProductCount     int           `json:"product_count" gorm:"-"`
+	SubCategoryCount int           `json:"sub_category_count" gorm:"-"`
 }
 
 func (*Category) TableName() string {

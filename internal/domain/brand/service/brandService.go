@@ -14,6 +14,5 @@ type BrandService interface {
 	DeleteBrand(brandID int) error
 
 	// FOR FRONT
-
 	GetOneBrandBySlug(brandSlug string) (*dto.GetOneBrandResponse, error)
 }
