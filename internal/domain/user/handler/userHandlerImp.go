@@ -70,6 +70,14 @@ func (userHandler userHandlerImp) Login(ctx *fiber.Ctx) error {
 		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
 	}
 
+	// validate phone number
+
+	validatePhoneNumber := validate.PhoneNumberValidate(loginRequest.Password)
+	if !validatePhoneNumber {
+		errResponse := response.Error(http.StatusBadRequest, "Nädogry telefon belgi", "Nädogry telefon belgi", nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
 	user, err := userHandler.userService.LoginUser(loginRequest)
 	if err != nil {
 		errResponse := response.Error(http.StatusBadRequest, "user not login", err.Error(), nil)

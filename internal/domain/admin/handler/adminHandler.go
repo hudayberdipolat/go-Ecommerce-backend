@@ -9,4 +9,5 @@ type AdminHandler interface {
 	UpdateData(ctx *fiber.Ctx) error
 	UpdatePassword(ctx *fiber.Ctx) error
 	Delete(ctx *fiber.Ctx) error
+	LoginAdmin(ctx *fiber.Ctx) error
 }

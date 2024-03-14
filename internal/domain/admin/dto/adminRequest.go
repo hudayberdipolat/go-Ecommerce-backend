@@ -23,3 +23,8 @@ type ChangeAdminPasswordRequest struct {
 	Password        string `form:"password" validate:"required"`
 	ConfirmPassword string `form:"confirm_password" validate:"required,eqfield=Password"`
 }
+
+type LoginAdminRequest struct {
+	PhoneNumber string `json:"phone_number" validate:"required"`
+	Password    string `json:"password" validate:"required"`
+}

@@ -14,4 +14,6 @@ type AdminService interface {
 	UpdateAdmin(ctx *fiber.Ctx, config *config.Config, adminID int, updateRequest dto.UpdateAdminRequest) error
 	UpdateAdminPassword(adminID int, updatePassword dto.ChangeAdminPasswordRequest) error
 	DeleteAdmin(adminID int) error
+
+	Login(adminLoginRequest dto.LoginAdminRequest) (*dto.AdminAuthResponse, error)
 }

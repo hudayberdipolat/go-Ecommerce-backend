@@ -11,4 +11,6 @@ type AdminRepository interface {
 	Update(adminID int, updateAdmin models.Admin) error
 	UpdateAdminPassword(adminID int, password string) error
 	Destroy(adminID int) error
+
+	FindAdminWithPhoneNumber(phoneNumber string) (*models.Admin, error)
 }

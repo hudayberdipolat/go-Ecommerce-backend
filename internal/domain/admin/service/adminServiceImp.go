@@ -9,6 +9,7 @@ import (
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/utils"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/config"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/jwtToken/adminToken"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -123,4 +124,21 @@ func (adminService adminServiceImp) DeleteAdmin(adminID int) error {
 		return err
 	}
 	return nil
+}
+
+func (adminService adminServiceImp) Login(adminLoginRequest dto.LoginAdminRequest) (*dto.AdminAuthResponse, error) {
+
+	getAdmin, err := adminService.adminRepo.FindAdminWithPhoneNumber(adminLoginRequest.PhoneNumber)
+	if err != nil {
+		return nil, err
+	}
+	if err := bcrypt.CompareHashAndPassword([]byte(getAdmin.Password), []byte(adminLoginRequest.Password)); err != nil {
+		return nil, err
+	}
+	accessToken, errToken := adminToken.GenerateAdminToken(getAdmin.ID, getAdmin.PhoneNumber, getAdmin.AdminStatus)
+	if errToken != nil {
+		return nil, err
+	}
+	adminResponse := dto.NewAdminAuthResponse(getAdmin, accessToken)
+	return &adminResponse, nil
 }

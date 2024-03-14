@@ -63,3 +63,11 @@ func (adminRepo adminRepoImp) Destroy(adminID int) error {
 	}
 	return nil
 }
+
+func (adminRepo adminRepoImp) FindAdminWithPhoneNumber(phoneNumber string) (*models.Admin, error) {
+	var admin models.Admin
+	if err := adminRepo.db.Where("phone_number=?", phoneNumber).First(&admin).Error; err != nil {
+		return nil, err
+	}
+	return &admin, nil
+}

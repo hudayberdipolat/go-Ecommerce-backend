@@ -131,3 +131,34 @@ func (adminHandler adminHandlerImp) Delete(ctx *fiber.Ctx) error {
 	successResponse := response.Success(http.StatusCreated, "admin deleted successfully", nil)
 	return ctx.Status(http.StatusCreated).JSON(successResponse)
 }
+
+func (adminHandler adminHandlerImp) LoginAdmin(ctx *fiber.Ctx) error {
+	var adminLoginRequest dto.LoginAdminRequest
+
+	// body parser
+	if err := ctx.BodyParser(&adminLoginRequest); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "body parser error", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	// validate data
+
+	if err := validate.ValidateStruct(adminLoginRequest); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "validate error", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+	// validate phone number
+	validatePhoneNumber := validate.PhoneNumberValidate(adminLoginRequest.PhoneNumber)
+	if !validatePhoneNumber {
+		errResponse := response.Error(http.StatusBadRequest, "Nädogry telefon belgi", "Nädogry telefon belgi", nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	adminResponse, err := adminHandler.adminService.Login(adminLoginRequest)
+	if err != nil {
+		errResponse := response.Error(http.StatusInternalServerError, "admin login error", err.Error(), nil)
+		return ctx.Status(http.StatusInternalServerError).JSON(errResponse)
+	}
+	successResponse := response.Success(http.StatusCreated, "admin login successfully", adminResponse)
+	return ctx.Status(http.StatusCreated).JSON(successResponse)
+}
