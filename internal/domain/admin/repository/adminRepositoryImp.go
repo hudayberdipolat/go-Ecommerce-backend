@@ -17,7 +17,9 @@ func NewAdminRepository(db *gorm.DB) AdminRepository {
 
 func (adminRepo adminRepoImp) FindAll() ([]models.Admin, error) {
 	var admins []models.Admin
-	if err := adminRepo.db.Find(&admins).Error; err != nil {
+	if err := adminRepo.db.
+		Select("id", "username", "full_name", "phone_number", "email", "admin_status", "admin_role", "created_at", "updated_at").
+		Where("admin_role =?", "admin").Find(&admins).Error; err != nil {
 		return nil, err
 	}
 	return admins, nil

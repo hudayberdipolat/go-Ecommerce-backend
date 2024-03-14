@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -42,16 +43,21 @@ func (adminService adminServiceImp) GetOneAdmin(adminID int) (*models.Admin, err
 func (adminService adminServiceImp) CreateAdmin(ctx *fiber.Ctx, config *config.Config, createRequest dto.CreateAdminRequest) error {
 
 	// generate password
-	hashPassword, err := bcrypt.GenerateFromPassword([]byte(createRequest.Password), bcrypt.MaxCost)
+	hashPassword, err := bcrypt.GenerateFromPassword([]byte(createRequest.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
 
-	// upload image
+	image, _ := ctx.FormFile("admin_image_url")
 
-	adminImageURL, err := utils.UploadFile(ctx, "admin_image_url", config.FolderConfig.PublicPath, "admin-images")
-	if err != nil {
-		return err
+	var imageUrl *string
+	if image != nil {
+		// upload image
+		adminImageURL, err := utils.UploadFile(ctx, "admin_image_url", config.FolderConfig.PublicPath, "admin-images")
+		if err != nil {
+			return err
+		}
+		imageUrl = adminImageURL
 	}
 
 	createAdmin := models.Admin{
@@ -60,9 +66,10 @@ func (adminService adminServiceImp) CreateAdmin(ctx *fiber.Ctx, config *config.C
 		PhoneNumber:   createRequest.PhoneNumber,
 		Email:         createRequest.Email,
 		AdminStatus:   "ACTIVE",
-		AdminImageURL: adminImageURL,
+		AdminRole:     "admin",
+		AdminImageURL: imageUrl,
 		Password:      string(hashPassword),
-		CrearedAt:     time.Now(),
+		CreatedAt:     time.Now(),
 		UpdatedAt:     time.Now(),
 	}
 
@@ -82,8 +89,10 @@ func (adminService adminServiceImp) UpdateAdmin(ctx *fiber.Ctx, config *config.C
 
 	if file != nil {
 		// old image delete
-		if err := utils.DeleteFile(*updateAdmin.AdminImageURL); err != nil {
-			return err
+		if updateAdmin.AdminImageURL != nil {
+			if err := utils.DeleteFile(*updateAdmin.AdminImageURL); err != nil {
+				return err
+			}
 		}
 		// new image upload
 		imageUrl, err := utils.UploadFile(ctx, "admin_image_url", config.FolderConfig.PublicPath, "admin-images")
@@ -92,6 +101,7 @@ func (adminService adminServiceImp) UpdateAdmin(ctx *fiber.Ctx, config *config.C
 		}
 		updateAdmin.AdminImageURL = imageUrl
 	}
+
 	updateAdmin.Username = updateRequest.Username
 	updateAdmin.FullName = updateRequest.FullName
 	updateAdmin.Email = updateRequest.Email
@@ -108,8 +118,17 @@ func (adminService adminServiceImp) UpdateAdminPassword(adminID int, updatePassw
 	if err != nil {
 		return err
 	}
+	// admin password denesdirmek
 
-	if err := adminService.adminRepo.UpdateAdminPassword(admin.ID, updatePassword.Password); err != nil {
+	if err := bcrypt.CompareHashAndPassword([]byte(admin.Password), []byte(updatePassword.OldPassword)); err != nil {
+		return errors.New("old password wrong")
+	}
+
+	// hash password
+
+	password, _ := bcrypt.GenerateFromPassword([]byte(updatePassword.Password), bcrypt.DefaultCost)
+
+	if err := adminService.adminRepo.UpdateAdminPassword(admin.ID, string(password)); err != nil {
 		return err
 	}
 	return nil
@@ -135,7 +154,7 @@ func (adminService adminServiceImp) Login(adminLoginRequest dto.LoginAdminReques
 	if err := bcrypt.CompareHashAndPassword([]byte(getAdmin.Password), []byte(adminLoginRequest.Password)); err != nil {
 		return nil, err
 	}
-	accessToken, errToken := adminToken.GenerateAdminToken(getAdmin.ID, getAdmin.PhoneNumber, getAdmin.AdminStatus)
+	accessToken, errToken := adminToken.GenerateAdminToken(getAdmin.ID, getAdmin.PhoneNumber, getAdmin.AdminRole, getAdmin.AdminStatus)
 	if errToken != nil {
 		return nil, err
 	}

@@ -10,6 +10,7 @@ type AdminAuthResponse struct {
 	Email         string  `jsin:"email"`
 	AdminImageURL *string `json:"user_image_url"`
 	AdminStatus   string  `json:"admin_status"`
+	AdminRole     string  `json:"admin_role"`
 	CrearedAt     string  `json:"created_at"`
 	UpdatedAt     string  `json:"updated_at"`
 	AccessToken   string  `json:"access_token"`
@@ -19,11 +20,13 @@ func NewAdminAuthResponse(admin *models.Admin, accessToken string) AdminAuthResp
 	return AdminAuthResponse{
 		ID:            admin.ID,
 		Username:      admin.Username,
-		FullName:      admin.PhoneNumber,
+		FullName:      admin.FullName,
+		PhoneNumber:   admin.PhoneNumber,
 		Email:         admin.Email,
 		AdminImageURL: admin.AdminImageURL,
 		AdminStatus:   admin.AdminStatus,
-		CrearedAt:     admin.CrearedAt.Format("01-02-2006"),
+		AdminRole:     admin.AdminRole,
+		CrearedAt:     admin.CreatedAt.Format("01-02-2006"),
 		UpdatedAt:     admin.UpdatedAt.Format("01-02-2006"),
 		AccessToken:   accessToken,
 	}

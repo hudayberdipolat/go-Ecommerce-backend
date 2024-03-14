@@ -21,8 +21,9 @@ func UserMiddleware(ctx *fiber.Ctx) error {
 		errResponse := response.Error(http.StatusUnauthorized, "Invalid token", "Invalid token", nil)
 		return ctx.Status(fiber.StatusUnauthorized).JSON(errResponse)
 	}
-	ctx.Locals("phone_number", claims.PhoneNumber)
 	ctx.Locals("user_id", claims.UserID)
+	ctx.Locals("phone_number", claims.PhoneNumber)
+	ctx.Locals("user_status", claims.UserStatus)
 	return ctx.Next()
 }
 

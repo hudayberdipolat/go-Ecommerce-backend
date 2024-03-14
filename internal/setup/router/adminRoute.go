@@ -9,6 +9,7 @@ import (
 	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	sliderConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/slider/constructor"
 	subCategoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/subCategory/constructor"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/middleware"
 )
 
 func AdminRoutes(app *fiber.App) {
@@ -16,19 +17,23 @@ func AdminRoutes(app *fiber.App) {
 	adminApi := app.Group("/api/admin")
 
 	// admin Auth routes
-
+	adminAuthRoute := adminApi.Group("auth")
+	adminAuthRoute.Post("/login", adminConstructor.AdminHandler.LoginAdmin)
 	// admin CRUD routes
 
 	adminRoute := adminApi.Group("admins")
+	adminRoute.Use(middleware.SuperAdminMiddleware)
 	adminRoute.Get("/", adminConstructor.AdminHandler.GetAll)
 	adminRoute.Get("/:adminID", adminConstructor.AdminHandler.GetOne)
 	adminRoute.Post("/create", adminConstructor.AdminHandler.Create)
 	adminRoute.Put("/:adminID/update", adminConstructor.AdminHandler.UpdateData)
 	adminRoute.Put("/:adminID/update-password", adminConstructor.AdminHandler.UpdatePassword)
 	adminRoute.Delete("/:adminID/delete", adminConstructor.AdminHandler.Delete)
+
 	// categories routes
 
 	categoryRoute := adminApi.Group("categories")
+	categoryRoute.Use(middleware.AdminMiddleware)
 	categoryRoute.Get("/", categoryConstructor.CategoryHandler.GetAll)
 	categoryRoute.Get("/:categoryID", categoryConstructor.CategoryHandler.GetOne)
 	categoryRoute.Post("/create", categoryConstructor.CategoryHandler.Create)
@@ -38,14 +43,14 @@ func AdminRoutes(app *fiber.App) {
 	// subCategory routes
 
 	subCategoryRoute := adminApi.Group("/categories/:categoryID/subCategories")
+	subCategoryRoute.Use(middleware.AdminMiddleware)
 	subCategoryRoute.Get("/", subCategoryConstructor.SubCategoryHandler.GetAll)
 	subCategoryRoute.Get("/:subCategoryID", subCategoryConstructor.SubCategoryHandler.GetOne)
 	subCategoryRoute.Post("/create", subCategoryConstructor.SubCategoryHandler.Create)
 	subCategoryRoute.Put("/:subCategoryID/update", subCategoryConstructor.SubCategoryHandler.Update)
 	subCategoryRoute.Delete("/:subCategoryID/delete", subCategoryConstructor.SubCategoryHandler.Delete)
 
-	// brand routes
-
+	// brand routeszzzz
 	brandRoute := adminApi.Group("/brands")
 	brandRoute.Get("/", brandConstructor.BrandHandler.GetAll)
 	brandRoute.Get("/:brandID", brandConstructor.BrandHandler.GetOne)
