@@ -1,0 +1,49 @@
+{"level":"info","time":"2024-03-13T09:03:21+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:03:21+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:03:35+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:03:35+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:04:37+05:00","caller":"dependencies.go:38","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:04:37+05:00","caller":"dependencies.go:46","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:04:37+05:00","caller":"main.go:19","message":"Project run successfully"}
+{"level":"info","time":"2024-03-13T09:06:34+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:06:34+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:06:58+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:06:58+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:16:45+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:16:45+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:17:26+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:17:26+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:17:55+05:00","caller":"dependencies.go:38","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:17:55+05:00","caller":"dependencies.go:46","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:17:55+05:00","caller":"main.go:19","message":"Project run successfully"}
+{"level":"info","time":"2024-03-13T09:18:58+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:18:58+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:20:02+05:00","caller":"dependencies.go:38","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:20:02+05:00","caller":"dependencies.go:46","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:20:02+05:00","caller":"main.go:19","message":"Project run successfully"}
+{"level":"info","time":"2024-03-13T09:20:42+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:20:42+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:22:00+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:22:00+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:23:42+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:23:42+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:24:10+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:24:10+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:35:35+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:35:35+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:35:35+05:00","caller":"dependencies.go:50","message":"seeder starting..."}
+{"level":"info","time":"2024-03-13T09:36:25+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T09:36:25+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T09:36:25+05:00","caller":"dependencies.go:50","message":"seeder starting..."}
+{"level":"info","time":"2024-03-13T10:00:39+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T10:00:39+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T10:00:39+05:00","caller":"dependencies.go:50","message":"seeder starting..."}
+{"level":"info","time":"2024-03-13T11:30:09+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T11:30:09+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T11:30:09+05:00","caller":"dependencies.go:50","message":"seeder starting..."}
+////{"level":"info","time":"2024-03-13T11:30:22+05:00","caller":"dependencies.go:39","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T11:30:22+05:00","caller":"dependencies.go:47","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T11:30:22+05:00","caller":"dependencies.go:50","message":"seeder starting..."}
+{"level":"info","time":"2024-03-13T11:54:04+05:00","caller":"dependencies.go:38","message":"-------------------------------------------"}
+{"level":"info","time":"2024-03-13T11:54:04+05:00","caller":"dependencies.go:46","message":"Database connection successfully"}
+{"level":"info","time":"2024-03-13T11:54:04+05:00","caller":"main.go:19","message":"Project run successfully"}

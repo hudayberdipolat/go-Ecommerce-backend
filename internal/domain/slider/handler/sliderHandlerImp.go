@@ -90,7 +90,6 @@ func (sliderHandler sliderHandlerImp) UpdateStatus(ctx *fiber.Ctx) error {
 
 func (sliderHandler sliderHandlerImp) Delete(ctx *fiber.Ctx) error {
 	sliderID, _ := strconv.Atoi(ctx.Params("sliderID"))
-
 	if err := sliderHandler.sliderService.DeleteSlider(sliderID); err != nil {
 		errResponse := response.Error(http.StatusNotFound, "slider can't deleted", err.Error(), nil)
 		return ctx.Status(http.StatusNotFound).JSON(errResponse)

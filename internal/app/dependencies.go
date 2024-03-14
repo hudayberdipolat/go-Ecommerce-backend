@@ -44,6 +44,16 @@ func GetDependencies() (*Dependencies, error) {
 		return nil, errDB
 	}
 	logger.Info().Msg("Database connection successfully")
+
+	// db seeder
+	// logger.Info().Msg("seeder starting...")
+	// seed := seeder.NewSeeder(db)
+	// if err := seed.Seeder(); err != nil {
+	// 	logger.Error().Msg("seeder error-------------")
+	// 	logger.Error().Msg(err.Error())
+	// 	return nil, err
+	// }
+
 	// http connection
 	customHttp := httpCustom.NewHttpClient()
 	return &Dependencies{
