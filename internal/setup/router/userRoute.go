@@ -21,8 +21,8 @@ func UserRoutes(app *fiber.App) {
 	userRoute := frontApi.Group("/user")
 	userRoute.Use(middleware.UserMiddleware)
 	userRoute.Get("/", userConstructor.UserHandler.GetUser)
-	userRoute.Post("/update-profile", userConstructor.UserHandler.Update)
-	userRoute.Post("/update-profile", userConstructor.UserHandler.ChangePassword)
+	userRoute.Put("/update-profile", userConstructor.UserHandler.Update)
+	userRoute.Put("/change-password", userConstructor.UserHandler.ChangePassword)
 
 	// USER WRITE COMMENT FOR PRODUCT
 

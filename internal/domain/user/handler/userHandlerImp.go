@@ -35,7 +35,16 @@ func (userHandler userHandlerImp) Register(ctx *fiber.Ctx) error {
 		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
 	}
 
+	// validate phone number
+
+	validatePhoneNumber := validate.PhoneNumberValidate(registerRequest.PhoneNumber)
+	if !validatePhoneNumber {
+		errResponse := response.Error(http.StatusBadRequest, "Nädogry telefon belgi", "Nädogry telefon belgi", nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
 	user, err := userHandler.userService.RegisterUser(registerRequest)
+
 	if err != nil {
 		errResponse := response.Error(http.StatusBadRequest, "user not register", err.Error(), nil)
 		return ctx.Status(http.StatusBadRequest).JSON(errResponse)

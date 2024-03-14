@@ -70,10 +70,11 @@ func AdminRoutes(app *fiber.App) {
 	pImageRoute.Post("/create", pImageConstructor.ProductImageHandler.Create)
 	pImageRoute.Delete("/:productImageID/delete", pImageConstructor.ProductImageHandler.Delete)
 
+	// slider routes
 	sliderRoute := adminApi.Group("sliders")
 	sliderRoute.Get("", sliderConstructor.SliderHandler.GetAll)
 	sliderRoute.Get("/:sliderID", sliderConstructor.SliderHandler.GetOne)
-	sliderRoute.Get("/create", sliderConstructor.SliderHandler.Create)
-	sliderRoute.Get(":sliderID/update", sliderConstructor.SliderHandler.UpdateStatus)
-	sliderRoute.Get("/:sliderID/delete", sliderConstructor.SliderHandler.Delete)
+	sliderRoute.Post("/create", sliderConstructor.SliderHandler.Create)
+	sliderRoute.Put(":sliderID/update", sliderConstructor.SliderHandler.UpdateStatus)
+	sliderRoute.Delete("/:sliderID/delete", sliderConstructor.SliderHandler.Delete)
 }

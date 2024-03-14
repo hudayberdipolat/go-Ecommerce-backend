@@ -61,6 +61,8 @@ func (adminHandler adminHandlerImp) Create(ctx *fiber.Ctx) error {
 		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
 	}
 
+	// validate phone number
+
 	if err := adminHandler.adminService.CreateAdmin(ctx, adminHandler.config, createAdminRequest); err != nil {
 		errResponse := response.Error(http.StatusBadRequest, "created not admin", err.Error(), nil)
 		return ctx.Status(http.StatusBadRequest).JSON(errResponse)

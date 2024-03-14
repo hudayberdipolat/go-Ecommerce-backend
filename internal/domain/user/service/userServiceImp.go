@@ -23,7 +23,7 @@ func NewUserService(repo repository.UserRepository) UserService {
 
 func (userService userServiceImp) RegisterUser(registerRequest dto.RegisterRequest) (*dto.UserAuthResponse, error) {
 
-	password, _ := bcrypt.GenerateFromPassword([]byte(registerRequest.Password), bcrypt.MaxCost)
+	password, _ := bcrypt.GenerateFromPassword([]byte(registerRequest.Password), bcrypt.DefaultCost)
 
 	user := models.User{
 		Username:    registerRequest.Username,
