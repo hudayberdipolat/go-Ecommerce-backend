@@ -2,6 +2,7 @@ package handler
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/user/dto"
@@ -18,6 +19,50 @@ func NewUserHandler(service service.UserService) UserHandler {
 	return userHandlerImp{
 		userService: service,
 	}
+}
+
+func (userHandler userHandlerImp) GetAll(ctx *fiber.Ctx) error {
+	users, err := userHandler.userService.FindAllUser()
+	if err != nil {
+		errResponse := response.Error(http.StatusNotFound, "users not found ", err.Error(), nil)
+		return ctx.Status(http.StatusNotFound).JSON(errResponse)
+	}
+	successResponse := response.Success(http.StatusOK, "get all users", users)
+	return ctx.Status(http.StatusOK).JSON(successResponse)
+}
+
+func (userHandler userHandlerImp) GetOne(ctx *fiber.Ctx) error {
+	userID, _ := strconv.Atoi(ctx.Params("userID"))
+	user, err := userHandler.userService.FindOneUser(userID)
+	if err != nil {
+		errResponse := response.Error(http.StatusNotFound, "user not found ", err.Error(), nil)
+		return ctx.Status(http.StatusNotFound).JSON(errResponse)
+	}
+	successResponse := response.Success(http.StatusOK, "get one user", user)
+	return ctx.Status(http.StatusOK).JSON(successResponse)
+}
+func (userHandler userHandlerImp) UpdateUserStatus(ctx *fiber.Ctx) error {
+	userID, _ := strconv.Atoi(ctx.Params("userID"))
+	var updateUserStatus dto.UpdateUserStatusRequest
+	// body parser
+	if err := ctx.BodyParser(&updateUserStatus); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "body parser error", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	// validate data
+	if err := validate.ValidateStruct(updateUserStatus); err != nil {
+		errResponse := response.Error(http.StatusBadRequest, "validate error", err.Error(), nil)
+		return ctx.Status(http.StatusBadRequest).JSON(errResponse)
+	}
+
+	// update status
+	if err := userHandler.userService.UpdateUserStatus(userID, updateUserStatus); err != nil {
+		errResponse := response.Error(http.StatusInternalServerError, "update user Status error", err.Error(), nil)
+		return ctx.Status(http.StatusInternalServerError).JSON(errResponse)
+	}
+	successResponse := response.Success(http.StatusOK, "updated user statuc successfully", nil)
+	return ctx.Status(http.StatusOK).JSON(successResponse)
 }
 
 func (userHandler userHandlerImp) Register(ctx *fiber.Ctx) error {

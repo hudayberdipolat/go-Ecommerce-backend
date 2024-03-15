@@ -17,6 +17,34 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 	}
 }
 
+func (userRepo userRepositoryImp) FindAll() ([]models.User, error) {
+	var users []models.User
+
+	if err := userRepo.db.Find(&users).Error; err != nil {
+		return nil, err
+	}
+
+	return users, nil
+}
+
+func (userRepo userRepositoryImp) FindOne(userID int) (*models.User, error) {
+	var user models.User
+	if err := userRepo.db.First(&user, userID).Error; err != nil {
+		return nil, err
+	}
+	return &user, nil
+}
+
+func (userRepo userRepositoryImp) UpdateUserStatus(userID int, userStatus string) error {
+	var user models.User
+	if err := userRepo.db.Model(&user).Where("id=?", userID).Updates(&models.User{
+		UserStatus: userStatus,
+	}).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
 func (userRepo userRepositoryImp) FindUserByPhoneNumber(phoneNumber string) (*models.User, error) {
 	var user models.User
 	if err := userRepo.db.Where("phone_number=?", phoneNumber).First(&user).Error; err != nil {

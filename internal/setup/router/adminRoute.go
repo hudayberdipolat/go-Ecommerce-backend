@@ -9,6 +9,7 @@ import (
 	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	sliderConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/slider/constructor"
 	subCategoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/subCategory/constructor"
+	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/user/constructor"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/middleware"
 )
 
@@ -19,8 +20,8 @@ func AdminRoutes(app *fiber.App) {
 	// admin Auth routes
 	adminAuthRoute := adminApi.Group("auth")
 	adminAuthRoute.Post("/login", adminConstructor.AdminHandler.LoginAdmin)
-	// admin CRUD routes
 
+	// admin CRUD routes
 	adminRoute := adminApi.Group("admins")
 	adminRoute.Use(middleware.SuperAdminMiddleware)
 	adminRoute.Get("/", adminConstructor.AdminHandler.GetAll)
@@ -30,8 +31,15 @@ func AdminRoutes(app *fiber.App) {
 	adminRoute.Put("/:adminID/update-password", adminConstructor.AdminHandler.UpdatePassword)
 	adminRoute.Delete("/:adminID/delete", adminConstructor.AdminHandler.Delete)
 
-	// categories routes
+	// user routes
 
+	userRoute := adminApi.Group("users")
+	userRoute.Use(middleware.SuperAdminMiddleware)
+	userRoute.Get("", constructor.UserHandler.GetAll)
+	userRoute.Get("/userID", constructor.UserHandler.GetOne)
+	userRoute.Get("/userID/update-status", constructor.UserHandler.UpdateUserStatus)
+
+	// categories routes
 	categoryRoute := adminApi.Group("categories")
 	categoryRoute.Use(middleware.AdminMiddleware)
 	categoryRoute.Get("/", categoryConstructor.CategoryHandler.GetAll)
@@ -41,7 +49,6 @@ func AdminRoutes(app *fiber.App) {
 	categoryRoute.Delete("/:categoryID/delete", categoryConstructor.CategoryHandler.Delete)
 
 	// subCategory routes
-
 	subCategoryRoute := adminApi.Group("/categories/:categoryID/subCategories")
 	subCategoryRoute.Use(middleware.AdminMiddleware)
 	subCategoryRoute.Get("/", subCategoryConstructor.SubCategoryHandler.GetAll)
@@ -50,8 +57,9 @@ func AdminRoutes(app *fiber.App) {
 	subCategoryRoute.Put("/:subCategoryID/update", subCategoryConstructor.SubCategoryHandler.Update)
 	subCategoryRoute.Delete("/:subCategoryID/delete", subCategoryConstructor.SubCategoryHandler.Delete)
 
-	// brand routeszzzz
-	brandRoute := adminApi.Group("/brands")
+	// brand routes
+	brandRoute := adminApi.Group("/bra0nds")
+	brandRoute.Use(middleware.AdminMiddleware)
 	brandRoute.Get("/", brandConstructor.BrandHandler.GetAll)
 	brandRoute.Get("/:brandID", brandConstructor.BrandHandler.GetOne)
 	brandRoute.Post("/create", brandConstructor.BrandHandler.Create)
@@ -59,8 +67,8 @@ func AdminRoutes(app *fiber.App) {
 	brandRoute.Delete("/:brandID/delete", brandConstructor.BrandHandler.Delete)
 
 	// product routes
-
 	productRoute := adminApi.Group("products")
+	productRoute.Use(middleware.AdminMiddleware)
 	productRoute.Get("/", productConstructor.ProductHandler.GetAll)
 	productRoute.Get("/:productID", productConstructor.ProductHandler.GetOne)
 	productRoute.Post("/create", productConstructor.ProductHandler.Create)
@@ -68,8 +76,8 @@ func AdminRoutes(app *fiber.App) {
 	productRoute.Delete(":productID/delete", productConstructor.ProductHandler.Delete)
 
 	// product-images routes
-
 	pImageRoute := adminApi.Group("products/:productID/product-images")
+	pImageRoute.Use(middleware.AdminMiddleware)
 	pImageRoute.Get("/", pImageConstructor.ProductImageHandler.GetAll)
 	pImageRoute.Get("/:productImageID", pImageConstructor.ProductImageHandler.GetOne)
 	pImageRoute.Post("/create", pImageConstructor.ProductImageHandler.Create)
@@ -77,9 +85,11 @@ func AdminRoutes(app *fiber.App) {
 
 	// slider routes
 	sliderRoute := adminApi.Group("sliders")
+	sliderRoute.Use(middleware.AdminMiddleware)
 	sliderRoute.Get("", sliderConstructor.SliderHandler.GetAll)
 	sliderRoute.Get("/:sliderID", sliderConstructor.SliderHandler.GetOne)
 	sliderRoute.Post("/create", sliderConstructor.SliderHandler.Create)
 	sliderRoute.Put(":sliderID/update", sliderConstructor.SliderHandler.UpdateStatus)
 	sliderRoute.Delete("/:sliderID/delete", sliderConstructor.SliderHandler.Delete)
+
 }

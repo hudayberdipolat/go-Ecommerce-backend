@@ -1,5 +1,9 @@
 package dto
 
+type UpdateUserStatusRequest struct {
+	UserStatus string `json:"user_status" validate:"required"`
+}
+
 type RegisterRequest struct {
 	PhoneNumber     string `json:"phone_number" validate:"required"`
 	Username        string `json:"username" validate:"required,min=3"`

@@ -21,6 +21,35 @@ func NewUserService(repo repository.UserRepository) UserService {
 	}
 }
 
+func (userService userServiceImp) FindAllUser() ([]models.User, error) {
+	users, err := userService.userRepo.FindAll()
+	if err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
+func (userService userServiceImp) FindOneUser(userID int) (*models.User, error) {
+	user, err := userService.userRepo.FindOne(userID)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
+func (userService userServiceImp) UpdateUserStatus(userID int, request dto.UpdateUserStatusRequest) error {
+
+	getUser, err := userService.userRepo.FindOne(userID)
+	if err != nil {
+		return err
+	}
+
+	if err := userService.userRepo.UpdateUserStatus(getUser.ID, request.UserStatus); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (userService userServiceImp) RegisterUser(registerRequest dto.RegisterRequest) (*dto.UserAuthResponse, error) {
 
 	password, _ := bcrypt.GenerateFromPassword([]byte(registerRequest.Password), bcrypt.DefaultCost)

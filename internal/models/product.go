@@ -31,7 +31,7 @@ type Product struct {
 	Brand               Brand            `json:"brand"`
 	ProductImages       []ProductImage   `json:"product_images"`
 	ProductComments     []ProductComment `json:"product_comments"`
+	CommentCount        int              `json:"comment_count"`
 	CreatedAt           time.Time        `json:"created_at"`
 	UpdatedAt           time.Time        `json:"updated_at"`
-	CommentCount        int              `json:"comment_count"`
 }
