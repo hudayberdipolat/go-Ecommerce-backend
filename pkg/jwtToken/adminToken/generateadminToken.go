@@ -23,7 +23,7 @@ func GenerateAdminToken(adminID int, phoneNumber, adminRole, adminStatus string)
 		AdminStatus: adminStatus,
 		AdminRole:   adminRole,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 2).Unix(),
+			ExpiresAt: time.Now().Add(time.Hour * 3).Unix(),
 			IssuedAt:  time.Now().Unix(),
 		},
 	}

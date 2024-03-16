@@ -64,6 +64,9 @@ func (categoryService categoryServiceImp) CreateCategory(ctx *fiber.Ctx, config 
 	}
 
 	if err := categoryService.categoryRepo.Store(createCategory); err != nil {
+		if err := utils.DeleteFile(*categoryImageURL); err != nil {
+			return err
+		}
 		return err
 	}
 

@@ -60,32 +60,32 @@ func (subCategoryService subcategoryServiceImp) GetAllSubCategory(categoryID int
 }
 
 func (subCategoryService subcategoryServiceImp) CreateSubCategory(ctx *fiber.Ctx, config *config.Config, categoryID int, createSubCategory dto.CreateSubCategoryRequest) error {
-	// get category eger-de sol category bar bolsa onda subCategory Create edilmeli
 
 	category, errGetCategory := subCategoryService.categoryRepo.FindOneByID(categoryID)
 	if errGetCategory != nil {
 		return errors.New("category Not found")
 	}
-
-	// file update
 	subCategoryImageURL, err := utils.UploadFile(ctx, "sub_category_image_url", config.FolderConfig.PublicPath, "subCategory-images")
 	if err != nil {
 		return err
 	}
 	// create subCategory
+
 	subCategory := models.SubCategory{
 		SubCategoryNameTk:   createSubCategory.SubCategoryNameTk,
 		SubCategoryNameRu:   createSubCategory.SubCategoryNameRu,
 		SubCategoryNameEn:   createSubCategory.SubCategoryNameEn,
 		SubCategorySlug:     slug.Make(createSubCategory.SubCategoryNameEn),
-		SubCategoryStatus:   "DRAFT",
-		SubCategoryImageURL: subCategoryImageURL,
 		CategoryID:          category.ID,
+		SubCategoryImageURL: subCategoryImageURL,
+		SubCategoryStatus:   "DRAFT",
 		CreatedAt:           time.Now(),
 		UpdatedAt:           time.Now(),
 	}
-
 	if err := subCategoryService.subCategoryRepo.Store(subCategory); err != nil {
+		if err := utils.DeleteFile(*subCategoryImageURL); err != nil {
+			return err
+		}
 		return err
 	}
 	return nil

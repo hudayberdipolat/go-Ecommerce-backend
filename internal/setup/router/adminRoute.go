@@ -18,10 +18,14 @@ func AdminRoutes(app *fiber.App) {
 	adminApi := app.Group("/api/admin")
 
 	// admin Auth routes
+
+	// all routes working
 	adminAuthRoute := adminApi.Group("auth")
 	adminAuthRoute.Post("/login", adminConstructor.AdminHandler.LoginAdmin)
 
 	// admin CRUD routes
+
+	// all routes working
 	adminRoute := adminApi.Group("admins")
 	adminRoute.Use(middleware.SuperAdminMiddleware)
 	adminRoute.Get("/", adminConstructor.AdminHandler.GetAll)
@@ -33,6 +37,7 @@ func AdminRoutes(app *fiber.App) {
 
 	// user routes
 
+	// all routes working
 	userRoute := adminApi.Group("users")
 	userRoute.Use(middleware.SuperAdminMiddleware)
 	userRoute.Get("", constructor.UserHandler.GetAll)
@@ -40,6 +45,8 @@ func AdminRoutes(app *fiber.App) {
 	userRoute.Get("/userID/update-status", constructor.UserHandler.UpdateUserStatus)
 
 	// categories routes
+
+	// all routes working
 	categoryRoute := adminApi.Group("categories")
 	categoryRoute.Use(middleware.AdminMiddleware)
 	categoryRoute.Get("/", categoryConstructor.CategoryHandler.GetAll)
@@ -49,6 +56,9 @@ func AdminRoutes(app *fiber.App) {
 	categoryRoute.Delete("/:categoryID/delete", categoryConstructor.CategoryHandler.Delete)
 
 	// subCategory routes
+
+	// all routes working
+
 	subCategoryRoute := adminApi.Group("/categories/:categoryID/subCategories")
 	subCategoryRoute.Use(middleware.AdminMiddleware)
 	subCategoryRoute.Get("/", subCategoryConstructor.SubCategoryHandler.GetAll)
@@ -58,6 +68,9 @@ func AdminRoutes(app *fiber.App) {
 	subCategoryRoute.Delete("/:subCategoryID/delete", subCategoryConstructor.SubCategoryHandler.Delete)
 
 	// brand routes
+
+	// all routes working
+
 	brandRoute := adminApi.Group("/bra0nds")
 	brandRoute.Use(middleware.AdminMiddleware)
 	brandRoute.Get("/", brandConstructor.BrandHandler.GetAll)

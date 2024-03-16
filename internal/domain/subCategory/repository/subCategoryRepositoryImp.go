@@ -31,10 +31,11 @@ func (subCategoryRepo subcategoryRepositoryImp) FindAll(categoryID int) ([]model
 	return subCategories, nil
 }
 
-func (subCategoryRepo subcategoryRepositoryImp) Store(createRequest models.SubCategory) error {
-	if err := subCategoryRepo.db.Create(&createRequest).Error; err != nil {
+func (subCategoryRepo subcategoryRepositoryImp) Store(subCategory models.SubCategory) error {
+	if err := subCategoryRepo.db.Create(&subCategory).Error; err != nil {
 		return err
 	}
+
 	return nil
 }
 
@@ -44,6 +45,7 @@ func (subCategoryRepo subcategoryRepositoryImp) Update(subCategoryID int, update
 	if err != nil {
 		return err
 	}
+
 	return nil
 }
 

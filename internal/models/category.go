@@ -14,7 +14,7 @@ type Category struct {
 	CategoryImageURL *string       `json:"category_image_url"`
 	CategorySlug     string        `json:"category_slug"`
 	CategoryStatus   string        `json:"category_status"`
-	SubCategories    []SubCategory `json:"sub_categories" gorm:"foreignKey:CategoryID"`
+	SubCategories    []SubCategory `json:"sub_categories" gorm:"foreignKey:CategoryID;->"`
 	Products         []Product     `json:"products"`
 	CreatedAt        time.Time     `json:"created_at"`
 	UpdatedAt        time.Time     `json:"updated_at"`
