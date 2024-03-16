@@ -61,6 +61,9 @@ func (brandService brandServiceImp) CreateBrand(ctx *fiber.Ctx, config *config.C
 		UpdatedAt:     time.Now(),
 	}
 	if err := brandService.brandRepo.Store(createBrand); err != nil {
+		if err := utils.DeleteFile(*brandImageURL); err != nil {
+			return err
+		}
 		return err
 	}
 	return nil

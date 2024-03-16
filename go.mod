@@ -11,6 +11,7 @@ require (
 	github.com/ilyakaznacheev/cleanenv v1.5.0
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/nicksnyder/go-i18n/v2 v2.4.0
+	github.com/pkg/errors v0.9.1
 	github.com/rs/zerolog v1.32.0
 	golang.org/x/crypto v0.19.0
 	golang.org/x/text v0.14.0
@@ -39,7 +40,6 @@ require (
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.12.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect

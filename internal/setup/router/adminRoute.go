@@ -71,7 +71,7 @@ func AdminRoutes(app *fiber.App) {
 
 	// all routes working
 
-	brandRoute := adminApi.Group("/bra0nds")
+	brandRoute := adminApi.Group("/brands")
 	brandRoute.Use(middleware.AdminMiddleware)
 	brandRoute.Get("/", brandConstructor.BrandHandler.GetAll)
 	brandRoute.Get("/:brandID", brandConstructor.BrandHandler.GetOne)
