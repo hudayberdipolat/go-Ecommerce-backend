@@ -46,7 +46,7 @@ func (sliderService sliderServiceImp) CreateSlider(ctx *fiber.Ctx, config *confi
 	// create model
 	createSlider := models.Slider{
 		SliderImageURL: sliderImageURL,
-		SliderStatus:   "ACTIVE",
+		SliderStatus:   "PASSIVE",
 		CreatedAt:      time.Now(),
 		UpdatedAt:      time.Now(),
 	}
@@ -77,6 +77,10 @@ func (sliderService sliderServiceImp) UpdateSliderStatus(sliderID int, updateSli
 func (sliderService sliderServiceImp) DeleteSlider(sliderID int) error {
 	slider, err := sliderService.sliderRepo.FindOne(sliderID)
 	if err != nil {
+		return err
+	}
+
+	if err := utils.DeleteFile(*slider.SliderImageURL); err != nil {
 		return err
 	}
 
