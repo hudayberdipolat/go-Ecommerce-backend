@@ -5,6 +5,7 @@ import (
 )
 
 type GetOneProductResponse struct {
+	ID                  int                `json:"id"`
 	ProductNameTk       string             `json:"product_name_tk"`
 	ProductNameRu       string             `json:"product_name_ru"`
 	ProductNameEn       string             `json:"product_name_en"`
@@ -19,8 +20,8 @@ type GetOneProductResponse struct {
 	ProductModel        string             `json:"product_model"`
 	ProductStatus       string             `json:"product_status"`
 	ProductFeature      string             `json:"product_feature"`
-	OriginalPrice       float32            `json:"original_price"`
-	DisCountPrice       float32            `json:"discount_price"`
+	OriginalPrice       float64            `json:"original_price"`
+	DisCountPrice       float64            `json:"discount_price"`
 	DisCountTime        string             `json:"discount_time"`
 	TotalCount          int                `json:"total_count"`
 	RestCount           int                `json:"rest_count"`
@@ -100,6 +101,7 @@ func NewGetOneProductResponse(product *models.Product) GetOneProductResponse {
 	}
 
 	return GetOneProductResponse{
+		ID:                  product.ID,
 		ProductNameTk:       product.ProductNameTk,
 		ProductNameRu:       product.ProductNameRu,
 		ProductNameEn:       product.ProductNameEn,
@@ -116,7 +118,6 @@ func NewGetOneProductResponse(product *models.Product) GetOneProductResponse {
 		ProductFeature:      product.ProductFeature,
 		OriginalPrice:       product.OriginalPrice,
 		DisCountPrice:       product.DisCountPrice,
-		DisCountTime:        product.DisCountTime.Format("01-02-2006"),
 		TotalCount:          product.TotalCount,
 		RestCount:           product.RestCount,
 		ProductImages:       productImages,
@@ -159,6 +160,7 @@ func NewGetOneProductResponse(product *models.Product) GetOneProductResponse {
 }
 
 type GetAllProductResponse struct {
+	ID                  int     `json:"id"`
 	ProductNameTk       string  `json:"product_name_tk"`
 	ProductNameRu       string  `json:"product_name_ru"`
 	ProductNameEn       string  `json:"product_name_en"`
@@ -166,7 +168,7 @@ type GetAllProductResponse struct {
 	ProductMainImageURL *string `json:"product_main_image_url"`
 	ProductModel        string  `json:"product_model"`
 	ProductStatus       string  `json:"product_status"`
-	OriginalPrice       float32 `json:"original_price"`
+	OriginalPrice       float64 `json:"original_price"`
 	TotalCount          int     `json:"total_count"`
 	RestCount           int     `json:"rest_count"`
 }
@@ -175,6 +177,7 @@ func NewGetAllProductResponse(products []models.Product) []GetAllProductResponse
 	var productResponses []GetAllProductResponse
 	for _, product := range products {
 		productResponse := GetAllProductResponse{
+			ID:                  product.ID,
 			ProductNameTk:       product.ProductNameTk,
 			ProductNameRu:       product.ProductNameRu,
 			ProductNameEn:       product.ProductNameEn,

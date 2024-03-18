@@ -85,11 +85,11 @@ func (userService userServiceImp) LoginUser(loginRequest dto.LoginRequest) (*dto
 
 	getUser, err := userService.userRepo.FindUserByPhoneNumber(loginRequest.PhoneNumber)
 	if err != nil {
-		return nil, err
+		return nil, errors.New("phone number or password wrong")
 	}
 
 	if err := bcrypt.CompareHashAndPassword([]byte(getUser.Password), []byte(loginRequest.Password)); err != nil {
-		return nil, err
+		return nil, errors.New("phone number or password wrong")
 	}
 
 	accessToken, err := userToken.GenerateUserToken(getUser.ID, getUser.PhoneNumber, getUser.UserStatus)

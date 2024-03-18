@@ -40,7 +40,7 @@ func (sliderRepo sliderRepositoryImp) Store(slider models.Slider) error {
 
 func (sliderRepo sliderRepositoryImp) UpdateStatus(sliderID int, updateSlider models.Slider) error {
 	var slider models.Slider
-	if err := sliderRepo.db.Model(&slider).Where("id=?", sliderID).Updates(&slider).Error; err != nil {
+	if err := sliderRepo.db.Model(&slider).Where("id=?", sliderID).Updates(&updateSlider).Error; err != nil {
 		return err
 	}
 	return nil

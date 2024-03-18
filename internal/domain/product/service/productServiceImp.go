@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -54,18 +55,18 @@ func (productService productServiceImp) GetAllProduct() ([]dto.GetAllProductResp
 func (productService productServiceImp) CreateProduct(ctx *fiber.Ctx, config *config.Config, createRequest dto.CreateProductRequest) error {
 	category, err := productService.categoryRepo.FindOneByID(createRequest.CategoryID)
 	if err != nil {
-		return err
+		return errors.New("category not found")
 	}
 	subCategory, err := productService.subCategoryRepo.FindOne(category.ID, createRequest.SubCategoryID)
 	if err != nil {
-		return err
+		return errors.New("subCategory not found")
 	}
-	brend, err := productService.brandRepo.GetOneByID(createRequest.BrandID)
+	brand, err := productService.brandRepo.GetOneByID(createRequest.BrandID)
 	if err != nil {
-		return err
+		return errors.New("brand not found")
 	}
 
-	productImageURL, err := utils.UploadFile(ctx, "product_image_url", config.FolderConfig.PublicPath, "product-images")
+	productImageURL, err := utils.UploadFile(ctx, "product_main_image_url", config.FolderConfig.PublicPath, "product-images")
 	if err != nil {
 		return err
 	}
@@ -74,7 +75,7 @@ func (productService productServiceImp) CreateProduct(ctx *fiber.Ctx, config *co
 		ProductNameTk:       createRequest.ProductNameTk,
 		ProductNameRu:       createRequest.ProductNameRu,
 		ProductNameEn:       createRequest.ProductNameEn,
-		ProductSlug:         slug.Make(createRequest.ProductNameEn) + randString,
+		ProductSlug:         slug.Make(createRequest.ProductNameEn) + "-" + randString,
 		ProductShortDescTk:  createRequest.ProductShortDescTk,
 		ProductShortDescRu:  createRequest.ProductShortDescRu,
 		ProductShortDescEn:  createRequest.ProductShortDescEn,
@@ -86,18 +87,19 @@ func (productService productServiceImp) CreateProduct(ctx *fiber.Ctx, config *co
 		ProductStatus:       "DRAFT",
 		OriginalPrice:       createRequest.OriginalPrice,
 		DisCountPrice:       createRequest.DisCountPrice,
-		DisCountTime:        createRequest.DisCountTime,
 		TotalCount:          createRequest.TotalCount,
 		RestCount:           createRequest.TotalCount,
 		CategoryID:          category.ID,
 		SubCategoryID:       subCategory.ID,
-		BrandID:             brend.ID,
+		BrandID:             brand.ID,
 	}
 
 	if err := productService.productRepo.Store(createProduct); err != nil {
+		if err := utils.DeleteFile(*productImageURL); err != nil {
+			return err
+		}
 		return err
 	}
-
 	return nil
 }
 
@@ -109,27 +111,27 @@ func (productService productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *co
 	}
 	category, err := productService.categoryRepo.FindOneByID(updateRequest.CategoryID)
 	if err != nil {
-		return err
+		return errors.New("category not found")
 	}
 	// get subCategory
 	subCategory, err := productService.subCategoryRepo.FindOne(category.ID, updateRequest.SubCategoryID)
 	if err != nil {
-		return err
+		return errors.New("subCategory not found")
 	}
 	// get Brend
-	brend, err := productService.brandRepo.GetOneByID(updateRequest.BrandID)
+	brand, err := productService.brandRepo.GetOneByID(updateRequest.BrandID)
 	if err != nil {
-		return err
+		return errors.New("brand not found")
 	}
 
-	file, _ := ctx.FormFile("product_image_url")
+	file, _ := ctx.FormFile("product_main_image_url")
 	if file != nil {
 		// delete file
 		if err := utils.DeleteFile(*updateProduct.ProductMainImageURL); err != nil {
 			return err
 		}
 		// file upload
-		productImageURL, err := utils.UploadFile(ctx, "product_image_url", config.FolderConfig.PublicPath, "product-images")
+		productImageURL, err := utils.UploadFile(ctx, "product_main_image_url", config.FolderConfig.PublicPath, "product-images")
 		if err != nil {
 			return err
 		}
@@ -140,7 +142,7 @@ func (productService productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *co
 	updateProduct.ProductNameTk = updateRequest.ProductNameTk
 	updateProduct.ProductNameRu = updateRequest.ProductNameRu
 	updateProduct.ProductNameEn = updateRequest.ProductNameEn
-	updateProduct.ProductSlug = slug.Make(updateRequest.ProductNameEn) + randString
+	updateProduct.ProductSlug = slug.Make(updateRequest.ProductNameEn) + "-" + randString
 	updateProduct.ProductShortDescTk = updateRequest.ProductShortDescTk
 	updateProduct.ProductShortDescTk = updateRequest.ProductShortDescRu
 	updateProduct.ProductShortDescTk = updateRequest.ProductShortDescEn
@@ -151,12 +153,11 @@ func (productService productServiceImp) UpdateProduct(ctx *fiber.Ctx, config *co
 	updateProduct.ProductStatus = updateRequest.ProductStatus
 	updateProduct.OriginalPrice = updateRequest.OriginalPrice
 	updateProduct.DisCountPrice = updateRequest.DisCountPrice
-	updateProduct.DisCountTime = updateRequest.DisCountTime
 	updateProduct.TotalCount = updateRequest.TotalCount
 	updateProduct.RestCount = updateRequest.RestCount
 	updateProduct.CategoryID = category.ID
 	updateProduct.SubCategoryID = subCategory.ID
-	updateProduct.BrandID = brend.ID
+	updateProduct.BrandID = brand.ID
 	updateProduct.UpdatedAt = time.Now()
 
 	if err := productService.productRepo.Update(updateProduct.ID, *updateProduct); err != nil {

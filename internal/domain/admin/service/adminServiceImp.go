@@ -149,10 +149,10 @@ func (adminService adminServiceImp) Login(adminLoginRequest dto.LoginAdminReques
 
 	getAdmin, err := adminService.adminRepo.FindAdminWithPhoneNumber(adminLoginRequest.PhoneNumber)
 	if err != nil {
-		return nil, err
+		return nil, errors.New("phone number or password wrong")
 	}
 	if err := bcrypt.CompareHashAndPassword([]byte(getAdmin.Password), []byte(adminLoginRequest.Password)); err != nil {
-		return nil, err
+		return nil, errors.New("phone number or password wrong")
 	}
 	accessToken, errToken := adminToken.GenerateAdminToken(getAdmin.ID, getAdmin.PhoneNumber, getAdmin.AdminRole, getAdmin.AdminStatus)
 	if errToken != nil {
