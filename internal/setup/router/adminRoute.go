@@ -5,6 +5,7 @@ import (
 	adminConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/admin/constructor"
 	brandConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brand/constructor"
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
+	contactConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
 	pImageConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product-images/constructor"
 	productConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/product/constructor"
 	sliderConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/slider/constructor"
@@ -91,4 +92,10 @@ func AdminRoutes(app *fiber.App) {
 	sliderRoute.Put(":sliderID/update", sliderConstructor.SliderHandler.UpdateStatus)
 	sliderRoute.Delete("/:sliderID/delete", sliderConstructor.SliderHandler.Delete)
 
+	// contact routes
+
+	contactRoute := adminApi.Group("contact")
+
+	contactRoute.Get("/:contactID", contactConstructor.ContactHandler.GetContact)
+	contactRoute.Get("/:contactID/update", contactConstructor.ContactHandler.UpdateContact)
 }
