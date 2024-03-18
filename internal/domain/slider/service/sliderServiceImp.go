@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
@@ -32,7 +33,7 @@ func (sliderService sliderServiceImp) GetAllSlider() ([]models.Slider, error) {
 func (sliderService sliderServiceImp) GetOneSlider(sliderID int) (*models.Slider, error) {
 	slider, err := sliderService.sliderRepo.FindOne(sliderID)
 	if err != nil {
-		return nil, err
+		return nil, errors.New("slider not found")
 	}
 	return slider, nil
 }
@@ -52,6 +53,9 @@ func (sliderService sliderServiceImp) CreateSlider(ctx *fiber.Ctx, config *confi
 	}
 	// create slider
 	if err := sliderService.sliderRepo.Store(createSlider); err != nil {
+		if err := utils.DeleteFile(*sliderImageURL); err != nil {
+			return err
+		}
 		return nil
 	}
 

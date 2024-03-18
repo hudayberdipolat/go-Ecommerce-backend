@@ -25,11 +25,11 @@ type GetOneProductResponse struct {
 	DisCountTime        string             `json:"discount_time"`
 	TotalCount          int                `json:"total_count"`
 	RestCount           int                `json:"rest_count"`
+	ProductImages       []productImage     `json:"product_images"`
 	Category            productCategory    `json:"category"`
 	SubCategory         productSubCategory `json:"sub_category"`
 	Brand               productBrand       `json:"brand"`
 	ProductComment      []productComment   `json:"product_comment"`
-	ProductImages       []productImage     `json:"product_images"`
 	CreatedAt           string             `json:"created_at"`
 	UpdatedAt           string             `json:"updated_at"`
 }

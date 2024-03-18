@@ -75,6 +75,9 @@ func (pImageService productImageServiceImp) CreateProductImage(ctx *fiber.Ctx, c
 	}
 
 	if err := pImageService.pImageRepo.Store(productImage); err != nil {
+		if err := utils.DeleteFile(*imageURL); err != nil {
+			return err
+		}
 		return err
 	}
 	return nil
