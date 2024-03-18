@@ -8,7 +8,7 @@ import (
 )
 
 type AppDataService interface {
-	GetOne() (*models.AppData, error)
-	CreateAppData() error
+	GetOne(appDataID int) (*models.AppData, error)
+	CreateAppData(ctx *fiber.Ctx, config *config.Config, createRequest dto.CreateAppDataRequest) error
 	UpdateAppData(ctx *fiber.Ctx, config *config.Config, appDataID int, updateRequest dto.UpdateAppDataRequest) error
 }
