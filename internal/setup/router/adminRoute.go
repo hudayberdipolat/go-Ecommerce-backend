@@ -103,9 +103,8 @@ func AdminRoutes(app *fiber.App) {
 	// app Data routes
 
 	appDataRoute := adminApi.Group("app-data")
-
 	appDataRoute.Get("/:appDataID", appDataConstructor.AppDataHandler.GetOne)
-	appDataRoute.Get("/create", appDataConstructor.AppDataHandler.Create)
-	appDataRoute.Get("/:appDataID/update", appDataConstructor.AppDataHandler.Update)
+	appDataRoute.Post("/create", appDataConstructor.AppDataHandler.Create)
+	appDataRoute.Put("/:appDataID/update", appDataConstructor.AppDataHandler.Update)
 
 }
