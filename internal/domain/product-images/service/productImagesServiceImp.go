@@ -63,7 +63,6 @@ func (pImageService productImageServiceImp) CreateProductImage(ctx *fiber.Ctx, c
 	}
 
 	// file upload
-
 	imageURL, err := utils.UploadFile(ctx, "image_url", config.FolderConfig.PublicPath, "product-images")
 	if err != nil {
 		return err
