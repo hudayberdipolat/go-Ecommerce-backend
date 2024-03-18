@@ -16,9 +16,17 @@ func NewContactRepository(db *gorm.DB) ContactRepository {
 }
 
 func (contactRepo contactRepositoryImp) GetContact(contactID int) (*models.Contact, error) {
-	panic("contactRepo IMP")
+	var contact models.Contact
+	if err := contactRepo.db.First(&contact, contactID).Error; err != nil {
+		return nil, err
+	}
+	return &contact, nil
 }
 
-func (contactRepo contactRepositoryImp) Update(contactID int) error {
-	panic("contactRepo IMP")
+func (contactRepo contactRepositoryImp) Update(contactID int, contact models.Contact) error {
+	var updateContact models.Contact
+	if err := contactRepo.db.Model(&updateContact).Where("id=?", contactID).Updates(&contact).Error; err != nil {
+		return err
+	}
+	return nil
 }

@@ -97,5 +97,5 @@ func AdminRoutes(app *fiber.App) {
 	contactRoute := adminApi.Group("contact")
 
 	contactRoute.Get("/:contactID", contactConstructor.ContactHandler.GetContact)
-	contactRoute.Get("/:contactID/update", contactConstructor.ContactHandler.UpdateContact)
+	contactRoute.Put("/:contactID/update", contactConstructor.ContactHandler.UpdateContact)
 }

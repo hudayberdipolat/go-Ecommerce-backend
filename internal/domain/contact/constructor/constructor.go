@@ -4,7 +4,6 @@ import (
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/handler"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/repository"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/service"
-	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/config"
 	"gorm.io/gorm"
 )
 
@@ -14,8 +13,8 @@ var (
 	ContactHandler handler.ContactHandler
 )
 
-func ContactRequirmentCreator(db *gorm.DB, config *config.Config) {
+func ContactRequirmentCreator(db *gorm.DB) {
 	contactRepo = repository.NewContactRepository(db)
 	contactService = service.NewContactService(contactRepo)
-	ContactHandler = handler.NewContactHandler(contactService, config)
+	ContactHandler = handler.NewContactHandler(contactService)
 }

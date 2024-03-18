@@ -1,13 +1,10 @@
 package dto
 
 type UpdateContactRequest struct {
-	PhoneNumber      string `form:"phone_number"`
-	YouTubeAccount   string `form:"youtube_account"`
-	InstagramAccount string `form:"instagram_account"`
-	TiktokAccount    string `form:"tiktok_account"`
-	ImoAccount       string `form:"imo_account"`
-	Address          string `form:"address"`
-	PlayMarket       string `form:"play_market"`
-	AppStore         string `form:"app_store"`
-	QrCode           string `form:"qr_code"`
+	PhoneNumber      string `json:"phone_number" validate:"required"`
+	YouTubeAccount   string `json:"youtube_account" validate:"required"`
+	InstagramAccount string `json:"instagram_account" validate:"required"`
+	TiktokAccount    string `json:"tiktok_account" validate:"required"`
+	ImoAccount       string `json:"imo_account" validate:"required"`
+	Address          string `json:"address" validate:"required"`
 }

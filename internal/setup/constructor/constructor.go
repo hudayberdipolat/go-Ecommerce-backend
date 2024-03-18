@@ -22,5 +22,5 @@ func Build(dependencies *app.Dependencies) {
 	userConstructor.UserRequirmentCreator(dependencies.DB)
 	adminConstructor.AdminRequirmentCreator(dependencies.DB, dependencies.Config)
 	sliderConstructor.SliderRequirmentCreator(dependencies.DB, dependencies.Config)
-	contactConstructor.ContactRequirmentCreator(dependencies.DB, dependencies.Config)
+	contactConstructor.ContactRequirmentCreator(dependencies.DB)
 }

@@ -1,11 +1,12 @@
 package service
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"errors"
+	"time"
+
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/dto"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/repository"
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/models"
-	"github.com/hudayberdipolat/go-Ecommerce-backend/pkg/config"
 )
 
 type contactServiceImp struct {
@@ -19,9 +20,30 @@ func NewContactService(repo repository.ContactRepository) ContactService {
 }
 
 func (contactService contactServiceImp) GetContact(contactID int) (*models.Contact, error) {
-	panic("contact Service IMP")
+	contact, err := contactService.contactRepo.GetContact(contactID)
+	if err != nil {
+		return nil, err
+	}
+	return contact, nil
 }
 
-func (contactService contactServiceImp) UpdateContact(ctx *fiber.Ctx, config *config.Config, contactID int, updateRequest dto.UpdateContactRequest) error {
-	panic("contact Service IMP")
+func (contactService contactServiceImp) UpdateContact(contactID int, updateRequest dto.UpdateContactRequest) error {
+	// get contact
+	contact, err := contactService.contactRepo.GetContact(contactID)
+	if err != nil {
+		return errors.New("contact not found")
+	}
+
+	contact.PhoneNumber = updateRequest.PhoneNumber
+	contact.YouTubeAccount = updateRequest.YouTubeAccount
+	contact.InstagramAccount = updateRequest.InstagramAccount
+	contact.TiktokAccount = updateRequest.TiktokAccount
+	contact.ImoAccount = updateRequest.ImoAccount
+	contact.Address = updateRequest.Address
+	contact.UpdatedAt = time.Now()
+
+	if err := contactService.contactRepo.Update(contact.ID, *contact); err != nil {
+		return err
+	}
+	return nil
 }
