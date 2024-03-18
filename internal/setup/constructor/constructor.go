@@ -3,6 +3,7 @@ package constructor
 import (
 	"github.com/hudayberdipolat/go-Ecommerce-backend/internal/app"
 	adminConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/admin/constructor"
+	appDataConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/appData/constructor"
 	brandConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/brand/constructor"
 	categoryConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/category/constructor"
 	contactConstructor "github.com/hudayberdipolat/go-Ecommerce-backend/internal/domain/contact/constructor"
@@ -23,4 +24,5 @@ func Build(dependencies *app.Dependencies) {
 	adminConstructor.AdminRequirmentCreator(dependencies.DB, dependencies.Config)
 	sliderConstructor.SliderRequirmentCreator(dependencies.DB, dependencies.Config)
 	contactConstructor.ContactRequirmentCreator(dependencies.DB)
+	appDataConstructor.AppDataRequirmentCreator(dependencies.DB, dependencies.Config)
 }
